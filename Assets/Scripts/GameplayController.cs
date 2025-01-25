@@ -11,12 +11,11 @@ public class GameplayController : MonoBehaviour
 
     public int score = 0;
     public int scorePerSecond = 1;
-    public GameObject gameOverUI;
-    public GameObject airUi;
+    private GameObject gameOverUI;
+    private GameObject airUi;
 
     private BubbleBarUI airUiController;
 
-    private AudioSource bubblePopSound;
     private ConnectorController activeConnector;
 
     private HurtOverlayController hurtOverlayController;
@@ -31,12 +30,14 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(BubblePopTimer());
         StartCoroutine(ScoreTimer());
 
+        GameObject canvas = GameObject.Find("Canvas");
+        gameOverUI = canvas.transform.Find("GameOverUI").gameObject;
+        airUi = canvas.transform.Find("AirUI").gameObject;
+
         airUiController = airUi.GetComponentInChildren<BubbleBarUI>();
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
         environmentController = FindFirstObjectByType<EnvironmentController>();
         movementController = FindFirstObjectByType<MovementController>();
-
-        bubblePopSound = GetComponent<AudioSource>();
 
         airUiController.SetBubbles(airReservoir);
     }

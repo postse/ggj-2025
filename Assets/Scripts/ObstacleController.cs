@@ -8,9 +8,12 @@ public class ObstacleController : MonoBehaviour
     AudioSource destructionSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    private CameraController cameraController;
+
     void Start()
     {
         destructionSound = GetComponent<AudioSource>();
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     public void Interact()
@@ -26,7 +29,7 @@ public class ObstacleController : MonoBehaviour
         {
             collider.enabled = false;
         }
-        CameraController.ShakeCamera(shakeDuration, shakeMagnitude);
+        cameraController.ShakeCamera(shakeDuration, shakeMagnitude);
         Destroy(gameObject, destructionSound.clip.length);
     }
 }
