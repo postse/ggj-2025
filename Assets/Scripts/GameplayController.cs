@@ -33,6 +33,8 @@ public class GameplayController : MonoBehaviour
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
 
         bubblePopSound = GetComponent<AudioSource>();
+
+        airUiController.SetBubbles(airReservoir);
     }
 
     void OnTriggerEnter(Collider other)
@@ -42,9 +44,11 @@ public class GameplayController : MonoBehaviour
             AddBubbleToReservoir();
             BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
             bubble.Interact();
-        } else if (other.gameObject.CompareTag("Obstacle")) {
+        }
+        else if (other.gameObject.CompareTag("Obstacle"))
+        {
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
-            RemoveBubbleFromReservoir(obstacle.damage);
+            RemoveBubbleFromReservoir(obstacle.damage, true);
             obstacle.Interact();
             hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         } else if (other.gameObject.CompareTag("Connector")) {
@@ -89,14 +93,20 @@ public class GameplayController : MonoBehaviour
         score += scoreToAdd;
     }
 
-    public void RemoveBubbleFromReservoir(int bubblesToRemove = 1)
+    public void RemoveBubbleFromReservoir(int bubblesToRemove = 1, bool fromObstacle = false)
     {
         airReservoir = Math.Max(0, airReservoir - bubblesToRemove);
-        for (int i = 0; i < bubblesToRemove; i++) {
-            airUiController.PopBubble();
+        for (int i = 0; i < bubblesToRemove; i++)
+        {
+            airUiController.SetBubbles(airReservoir);
+
+            if (fromObstacle)
+            {
+                hurtOverlayController.FlashOverlay(0.2f, 0.2f);
+            }
         }
 
-        if (airReservoir == 0)
+        if (airReservoir <= 0)
         {
             GameOver();
         }
@@ -105,19 +115,18 @@ public class GameplayController : MonoBehaviour
     public void AddBubbleToReservoir(int bubblesToAdd = 1)
     {
         airReservoir = Math.Min(maxAirReservoir, airReservoir + bubblesToAdd);
-        for (int i = 0; i < bubblesToAdd; i++)
-        {
-            airUiController.AddBubble();
-        }
+        airUiController.SetBubbles(airReservoir);
     }
 
-    void GameOver() {
+    void GameOver()
+    {
+        Debug.Log("Game Over!");
         if (isGameOver) return;
 
         isGameOver = true;
 
         hurtOverlayController.FadeOverlay(1.0f, 0.3f);
-        
+
         airUi.SetActive(false);
         gameOverUI.SetActive(true);
         GameObject.Find("GameOverScoreText").GetComponent<TextMeshProUGUI>().SetText("Score: " + score);
