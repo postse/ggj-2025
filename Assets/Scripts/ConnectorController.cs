@@ -21,7 +21,7 @@ public class ConnectorController : MonoBehaviour
     public bool AllowLeft = false;
     public bool AllowDown = false;
 
-    public float turningSpeed = 5.0f;
+    private float turningSpeed = 200.0f;
     private Quaternion ogRot = Quaternion.identity;
     private Direction turnDir = Direction.None;
 
@@ -102,11 +102,11 @@ public class ConnectorController : MonoBehaviour
     IEnumerator TurnToTarget(Quaternion targetRot) {
         // float speed = turningSpeed * ( 1f - Mathf.Exp( -Time.deltaTime ) );
         float speed = turningSpeed * Time.deltaTime;
-        // float speed = turningSpeed * Time.deltaTime * Time.deltaTime;
+        // float speed = Quaternion.Angle(transform.rotation, targetRot) / 180 * Time.deltaTime;
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f) 
         {
-            transform.rotation = Quaternion.Lerp( transform.rotation, targetRot, speed );
-            // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, speed);
+            // transform.rotation = Quaternion.Lerp( transform.rotation, targetRot, speed );
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, speed);
             yield return null;
         }
         transform.rotation = targetRot;
