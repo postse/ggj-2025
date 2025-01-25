@@ -16,7 +16,6 @@ public class GameplayController : MonoBehaviour
 
     private BubbleBarUI airUiController;
 
-    private AudioSource bubblePopSound;
     private ConnectorController activeConnector;
 
     private HurtOverlayController hurtOverlayController;
@@ -35,8 +34,6 @@ public class GameplayController : MonoBehaviour
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
         environmentController = FindFirstObjectByType<EnvironmentController>();
         movementController = FindFirstObjectByType<MovementController>();
-
-        bubblePopSound = GetComponent<AudioSource>();
 
         airUiController.SetBubbles(airReservoir);
     }
