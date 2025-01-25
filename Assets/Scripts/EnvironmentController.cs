@@ -50,7 +50,7 @@ public class EnvironmentController : MonoBehaviour
             Destroy(obj);
             if (!connectorSpawned) {
                 // 1 in 8 chance of spawning a connector
-                if (Random.Range(0, 3) == 0)
+                if (Random.Range(0, 8) == 0)
                 {
                     InstantiateConnector();
                 }
@@ -70,14 +70,25 @@ public class EnvironmentController : MonoBehaviour
 
     public void InstantiateConnector() {
         var selectedConnector = connectors[Random.Range(0, connectors.Count)];
-        var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 90, 0), transform);
+        float randAngle = Random.Range(0, 4) * 90.0f;
+        var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, randAngle), transform);
         environmentObjects.Add(connector);
         connectorSpawned = true;
         connector.name = "Connector" + totalPipes++;
+
+        // Generate 'pipeCount' pipes in each of the 4 directions attached to the connector
+        // for (int i = 0; i < 4; i++) {
+        //     for (int j = 1; j < pipeCount + 1; i++) {
+        //         float right = Mathf.Cos(i * Mathf.PI / 2);
+        //         float up = Mathf.Sin(i * Mathf.PI / 2);
+        //         var straightPipe = Instantiate(straightPipePrefab, j * new Vector3(right * pipeLength, up * pipeLength, pipeLength), Quaternion.Euler(90, up * 90, 0), connector.transform);
+        //         environmentObjects.Add(straightPipe);
+        //     }
+        // }
     }
 
     public void InstantiateEnvironment(int offset = 0) {
-        var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(90, 0, 0), transform);
+        var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
         PlaceBubbleCollectibles(straightPipe);

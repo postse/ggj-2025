@@ -47,13 +47,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   connectors:
-  - {fileID: 5569602423129916021, guid: 9c3c4d97149b70e459eb9176f4c28a1f, type: 3}
+  - {fileID: 4439066156245773155, guid: b34e2dd0c2f608a4b92573f9c3c98863, type: 3}
+  - {fileID: 9159215432039822218, guid: a4d30e872871b6346bb22c1d989eeb22, type: 3}
+  - {fileID: 664094547934347234, guid: 22bc60bb262ec2544b5e6900e09cc421, type: 3}
+  - {fileID: 7109005049530418683, guid: f2e3639bac2817c48bbec63286835402, type: 3}
+  - {fileID: 3875079651744699582, guid: 40919d2b87e42b0418257c888d78545f, type: 3}
+  - {fileID: 4036841200774873820, guid: 71a8f71d18e48de42b52877450d5fec2, type: 3}
   collectibles:
   - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
   - {fileID: 1478892130398164570, guid: a9a4471da39b1774fa1c17e0d534b9fd, type: 3}
   - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
   - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
-  straightPipePrefab: {fileID: 8796448342961529273, guid: 1bee0c43a8a014f01af273947d46c463, type: 3}
+  straightPipePrefab: {fileID: 8337143842550878145, guid: 511f74ede946aa64e8095d35671ca185, type: 3}
   pipeCount: 4
   bubblesPerPipe: 4
 --- !u!82 &1478162513162020642
