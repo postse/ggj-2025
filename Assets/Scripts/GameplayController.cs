@@ -42,6 +42,9 @@ public class GameplayController : MonoBehaviour
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
             RemoveBubbleFromReservoir(obstacle.damage);
             obstacle.Interact();
+        } else if (other.gameObject.CompareTag("Connector")) {
+            Debug.Log("Connector!");
+            other.gameObject.GetComponentInParent<ConnectorController>().StartTurning();
         }
     }
 

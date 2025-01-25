@@ -13,7 +13,7 @@ public class ConnectorController : MonoBehaviour
     public bool Down = false;
 
     private Quaternion ogRot = Quaternion.identity;
-    private bool playerHasEntered = false;
+    public bool playerHasEntered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +26,7 @@ public class ConnectorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (Time.time < 3) return;
         if (playerHasEntered)
         {
             Turn("Right");

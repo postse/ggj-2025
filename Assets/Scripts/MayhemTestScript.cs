@@ -11,7 +11,6 @@ public class TestScript : MonoBehaviour
 
     void OnMove(InputValue inputValue)
     {
-        Debug.Log(inputValue);
     }
 
     // Update is called once per frame
