@@ -568,8 +568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3940063eda904ef989bdaa3d354c4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lateralAcceleration: 50
-  lateralMaxSpeed: 15
+  lateralAcceleration: 200
+  lateralMaxSpeed: 7
 --- !u!114 &8784474831104696128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1272,7 +1272,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: -1, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 10, y: 10, z: 1}
+    m_Scale: {x: 20, y: 10, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
