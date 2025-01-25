@@ -6,12 +6,13 @@ public class EnvironmentController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 10.0f;
 
-    private GameObject[] environmentObjects;
+    private List<GameObject> environmentObjects = new List<GameObject>();
+
+    public GameObject straightPipePrefab;
 
     void Start()
     {
-        // Cache the environment objects at the start
-        environmentObjects = GameObject.FindGameObjectsWithTag("Environment");
+        InstantiateEnvironment();
     }
 
     void Update()
@@ -21,5 +22,10 @@ public class EnvironmentController : MonoBehaviour
         {
             obj.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
         }
+    }
+
+    void InstantiateEnvironment() {
+        var straightPipe = Instantiate(straightPipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0), transform);
+        environmentObjects.Add(straightPipe);
     }
 }
