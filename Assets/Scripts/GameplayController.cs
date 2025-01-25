@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
@@ -10,8 +11,14 @@ public class GameplayController : MonoBehaviour
 
     public int score = 0;
     public int scorePerSecond = 1;
+    public GameObject gameOverUI;
+    public GameObject airUi;
 
-    private BubbleBarUI uiController;   
+    private BubbleBarUI airUiController;
+
+    private AudioSource bubblePopSound;
+
+    private bool isGameOver = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +26,9 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(BubblePopTimer());
         StartCoroutine(ScoreTimer());
 
-        uiController = GameObject.Find("AirUI").GetComponentInChildren<BubbleBarUI>();
+        airUiController = airUi.GetComponentInChildren<BubbleBarUI>();
+
+        bubblePopSound = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -38,24 +47,19 @@ public class GameplayController : MonoBehaviour
 
     IEnumerator BubblePopTimer()
     {
-        while (true)
+        while (!isGameOver)
         {
             yield return new WaitForSeconds(bubblePopTimerFrequency);
             if (airReservoir > 0)
             {
                 RemoveBubbleFromReservoir();
             }
-
-            if (airReservoir == 0)
-            {
-                GameOver();
-            }
         }
     }
 
     IEnumerator ScoreTimer()
     {
-        while (true)
+        while (!isGameOver)
         {
             yield return new WaitForSeconds(1.0f);
             AddScore(scorePerSecond);
@@ -71,7 +75,12 @@ public class GameplayController : MonoBehaviour
     {
         airReservoir = Math.Max(0, airReservoir - bubblesToRemove);
         for (int i = 0; i < bubblesToRemove; i++) {
-            uiController.PopBubble();
+            airUiController.PopBubble();
+        }
+
+        if (airReservoir == 0)
+        {
+            GameOver();
         }
     }
 
@@ -80,16 +89,17 @@ public class GameplayController : MonoBehaviour
         airReservoir = Math.Min(maxAirReservoir, airReservoir + bubblesToAdd);
         for (int i = 0; i < bubblesToAdd; i++)
         {
-            uiController.AddBubble();
+            airUiController.AddBubble();
         }
     }
 
     void GameOver() {
-        Debug.Log("GAME OVER");
-        // var bubbles = GameObject.FindGameObjectsWithTag("Bubble");
-        // foreach (var bubble in bubbles)
-        // {
-        //     Destroy(bubble);
-        // }
+        if (isGameOver) return;
+
+        isGameOver = true;
+        
+        airUi.SetActive(false);
+        gameOverUI.SetActive(true);
+        GameObject.Find("GameOverScoreText").GetComponent<TextMeshProUGUI>().SetText("Score: " + score);
     }
 }
