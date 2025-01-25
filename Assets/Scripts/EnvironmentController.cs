@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnvironmentController : MonoBehaviour
@@ -7,16 +8,20 @@ public class EnvironmentController : MonoBehaviour
     private float moveSpeed = 10.0f;
 
     private List<GameObject> environmentObjects = new List<GameObject>();
+    public List<GameObject> connectors = new List<GameObject>();
+    public List<GameObject> collectibles = new List<GameObject>();
 
     public GameObject straightPipePrefab;
 
-    readonly private float pipeLength = 85f;
-    public int pipeCount = 3;
+    readonly private float pipeLength = 28f;
+    public int pipeCount = 4;
     bool connectorSpawned = false;
+    int totalPipes = 0;
+    
 
     void Start()
     {
-        for (int i = 0; i < pipeCount; i++)
+        for (int i = 0; i <= pipeCount; i++)
         {
             InstantiateEnvironment(i);
         }
@@ -41,12 +46,48 @@ public class EnvironmentController : MonoBehaviour
             var obj = objectsToRemove[i];
             environmentObjects.Remove(obj);
             Destroy(obj);
-            InstantiateEnvironment(pipeCount - 1);
+            if (!connectorSpawned) {
+                // 1 in 8 chance of spawning a connector
+                if (Random.Range(0, 3) == 0)
+                {
+                    InstantiateConnector();
+                }
+                else
+                {
+                    InstantiateEnvironment(pipeCount);
+                }
+            } 
+            else if (connectorSpawned && obj.CompareTag("Connector"))
+            {
+                // If a connector has been spawned, don't spawn anything else until it has been removed
+                connectorSpawned = false;
+                InstantiateEnvironment();
+            }
         }
+    }
+
+    public void InstantiateConnector() {
+        var selectedConnector = connectors[Random.Range(0, connectors.Count)];
+        var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 90, 0), transform);
+        environmentObjects.Add(connector);
+        connectorSpawned = true;
+        connector.name = "Connector" + totalPipes++;
     }
 
     public void InstantiateEnvironment(int offset = 0) {
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(90, 0, 0), transform);
         environmentObjects.Add(straightPipe);
+
+        PlaceBubbleCollectibles(straightPipe);
+        straightPipe.name = "Pipe" + totalPipes++;
+    }
+
+    public void PlaceBubbleCollectibles(GameObject pipe) {
+        float collectibleSpacing = 1;
+        for (int i = -5; i < 6; i++)
+        {
+            var collectible = Instantiate(collectibles[Random.Range(0, collectibles.Count)], pipe.transform);
+            collectible.transform.localPosition = new Vector3(Random.Range(-.5f, .5f), collectibleSpacing * i, Random.Range(-.5f, .5f));
+        }
     }
 }

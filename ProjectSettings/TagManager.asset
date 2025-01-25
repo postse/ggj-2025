@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bubble
   - Environment
+  - Connector
   layers:
   - Default
   - TransparentFX

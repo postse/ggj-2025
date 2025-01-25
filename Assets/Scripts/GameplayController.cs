@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameplayController : MonoBehaviour
 {
     public int airReservoir = 10;
-    public float bubblePopTimerFrequency = 1.0f;
+    public float bubblePopTimerFrequency = 2.0f;
 
     public int score = 0;
     public int scorePerSecond = 1;
@@ -24,7 +24,9 @@ public class GameplayController : MonoBehaviour
         if (other.gameObject.CompareTag("Bubble"))
         {
             AddBubbleToReservoir();
-            Destroy(other.gameObject);
+            BubbleController bubbleController = other.gameObject.GetComponent<BubbleController>();
+            bubbleController.PlaySound();
+            Destroy(other.gameObject, 1f);
         }
     }
 
@@ -35,7 +37,7 @@ public class GameplayController : MonoBehaviour
             yield return new WaitForSeconds(bubblePopTimerFrequency);
             if (airReservoir > 0)
             {
-                airReservoir--;
+                RemoveBubbleFromReservoir();
             }
 
             if (airReservoir == 0)
@@ -73,10 +75,10 @@ public class GameplayController : MonoBehaviour
 
     void GameOver() {
         Debug.Log("GAME OVER");
-        var bubbles = GameObject.FindGameObjectsWithTag("Bubble");
-        foreach (var bubble in bubbles)
-        {
-            Destroy(bubble);
-        }
+        // var bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+        // foreach (var bubble in bubbles)
+        // {
+        //     Destroy(bubble);
+        // }
     }
 }

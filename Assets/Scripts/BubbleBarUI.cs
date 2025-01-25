@@ -39,6 +39,7 @@ public class BubbleBarUI : MonoBehaviour, IPointerClickHandler
 
     public void PopBubble()
     {
+        if (bubbles.Count == 0) return;
         GameObject bubble = bubbles[bubbles.Count-1];
         bubbles.Remove(bubble);
         Destroy(bubble);
