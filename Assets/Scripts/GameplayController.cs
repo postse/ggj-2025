@@ -11,12 +11,15 @@ public class GameplayController : MonoBehaviour
 
     private BubbleBarUI uiController;
 
+    private AudioSource bubblePopSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(BubblePopTimer());
         StartCoroutine(ScoreTimer());
         uiController = GameObject.Find("AirUI").GetComponentInChildren<BubbleBarUI>();
+        bubblePopSound = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -24,9 +27,8 @@ public class GameplayController : MonoBehaviour
         if (other.gameObject.CompareTag("Bubble"))
         {
             AddBubbleToReservoir();
-            BubbleController bubbleController = other.gameObject.GetComponent<BubbleController>();
-            bubbleController.PlaySound();
-            Destroy(other.gameObject, 1f);
+            bubblePopSound.Play();
+            Destroy(other.gameObject);
         }
     }
 
