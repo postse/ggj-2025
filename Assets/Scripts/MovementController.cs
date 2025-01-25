@@ -14,9 +14,12 @@ public class MovementController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private GameplayController gameplayController;
+
     void Start()
     {
         rb = GetComponentInChildren<Rigidbody>();
+        gameplayController = GetComponentInChildren<GameplayController>();
     }
 
     void FixedUpdate()
@@ -35,4 +38,28 @@ public class MovementController : MonoBehaviour
         // Update moveDirection based on input
         lateralMoveDirection = new Vector3(input.x, input.y, 0); // Update x for lateral and y for vertical movement
     }
+
+    void OnJump(InputValue value) 
+    {
+        ConnectorController cc = gameplayController.GetTurningConnector();
+        if (cc) {
+            // Turn connector
+            if (Vector3.Dot(lateralMoveDirection, Vector3.right) > 0) {
+                Debug.Log("Right");
+                cc.StartTurning("Right");
+            } else if (Vector3.Dot(lateralMoveDirection, Vector3.left) > 0) {
+                Debug.Log("Left");
+                cc.StartTurning("Left");
+            } else if (Vector3.Dot(lateralMoveDirection, Vector3.up) > 0) {
+                Debug.Log("Up");
+                cc.StartTurning("Up");
+            } else if (Vector3.Dot(lateralMoveDirection, Vector3.down) > 0) {
+                Debug.Log("Down");
+                cc.StartTurning("Down");
+            }
+        } else {
+            // Other stuff
+        }
+    }
+
 }

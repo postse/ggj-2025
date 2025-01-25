@@ -17,6 +17,7 @@ public class GameplayController : MonoBehaviour
     private BubbleBarUI airUiController;
 
     private AudioSource bubblePopSound;
+    private ConnectorController turningConnector;
 
     private HurtOverlayController hurtOverlayController;
 
@@ -47,9 +48,19 @@ public class GameplayController : MonoBehaviour
             obstacle.Interact();
             hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         } else if (other.gameObject.CompareTag("Connector")) {
-            Debug.Log("Connector!");
-            other.gameObject.GetComponentInParent<ConnectorController>().StartTurning();
+            turningConnector = other.gameObject.GetComponentInParent<ConnectorController>();
         }
+    }
+
+    void OnTriggerExit(Collider other) 
+    {
+        if (other.gameObject.CompareTag("Connector")) {
+            turningConnector = null;
+        }
+    }
+
+    public ConnectorController GetTurningConnector() {
+        return turningConnector;
     }
 
     IEnumerator BubblePopTimer()

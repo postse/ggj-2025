@@ -13,7 +13,7 @@ public class ConnectorController : MonoBehaviour
     public bool Down = false;
 
     private Quaternion ogRot = Quaternion.identity;
-    public bool playerHasEntered = false;
+    public string turnDir = string.Empty;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,13 +27,11 @@ public class ConnectorController : MonoBehaviour
     void Update()
     {
         // if (Time.time < 3) return;
-        if (playerHasEntered)
+        if (turnDir != string.Empty)
         {
-            Turn("Right");
-            Turn("Up");
-            Turn("Down");
-            Turn("Left");
+            Turn(turnDir);
         }
+
     }
 
     // Used to initialize the allowed turning directions
@@ -68,9 +66,9 @@ public class ConnectorController : MonoBehaviour
         Right = oldDown;
     }
 
-    void Turn(string dir) 
+    public void Turn(string dir) 
     {
-        float speed = 10f*( 1f - Mathf.Exp( -Time.deltaTime ) );
+        float speed = 1.0f * ( 1f - Mathf.Exp( -Time.deltaTime ) );
         Quaternion targetRot = Quaternion.identity;
 
         if (string.Equals(dir, "Right") && Right)
@@ -100,9 +98,9 @@ public class ConnectorController : MonoBehaviour
         // transform.Rotate(speed * targetRot, Space.World);
     }
     
-    public void StartTurning() 
+    public void StartTurning(string dir) 
     {
-        playerHasEntered = true;
+        turnDir = dir;
     }
 
 }
