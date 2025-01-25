@@ -329,6 +329,7 @@ MonoBehaviour:
   scorePerSecond: 1
   gameOverUI: {fileID: 0}
   airUi: {fileID: 0}
+  isGameOver: 0
 --- !u!82 &9161553350224295615
 AudioSource:
   m_ObjectHideFlags: 0
