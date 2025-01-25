@@ -28,7 +28,6 @@ public class BubbleBarUI : MonoBehaviour
 
         for (int i = 0; i < bubbleCount; i++)
         {
-            Debug.Log("Creating bubble: " + i);
             pos.x -= 2 * bubbleRadius;
             GameObject bubble = Instantiate(BubbleUIPrefab, transform.position + pos, Quaternion.identity, transform);
             bubbles.Add(bubble);
