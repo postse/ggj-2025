@@ -35,4 +35,11 @@ public class MovementController : MonoBehaviour
         // Update moveDirection based on input
         lateralMoveDirection = new Vector3(input.x, input.y, 0); // Update x for lateral and y for vertical movement
     }
+
+    public void StopMovement()
+    {
+        lateralMoveDirection = Vector3.zero;
+        lateralAcceleration = 0;
+        rb.useGravity = true;
+    }
 }
