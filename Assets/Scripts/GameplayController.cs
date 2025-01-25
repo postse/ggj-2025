@@ -18,6 +18,8 @@ public class GameplayController : MonoBehaviour
 
     private AudioSource bubblePopSound;
 
+    private HurtOverlayController hurtOverlayController;
+
     private bool isGameOver = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +29,7 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(ScoreTimer());
 
         airUiController = airUi.GetComponentInChildren<BubbleBarUI>();
+        hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
 
         bubblePopSound = GetComponent<AudioSource>();
     }
@@ -42,6 +45,7 @@ public class GameplayController : MonoBehaviour
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
             RemoveBubbleFromReservoir(obstacle.damage);
             obstacle.Interact();
+            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         } else if (other.gameObject.CompareTag("Connector")) {
             Debug.Log("Connector!");
             other.gameObject.GetComponentInParent<ConnectorController>().StartTurning();
@@ -100,6 +104,8 @@ public class GameplayController : MonoBehaviour
         if (isGameOver) return;
 
         isGameOver = true;
+
+        hurtOverlayController.FadeOverlay(1.0f, 0.3f);
         
         airUi.SetActive(false);
         gameOverUI.SetActive(true);

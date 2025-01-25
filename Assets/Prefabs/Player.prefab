@@ -323,9 +323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airReservoir: 10
-  bubblePopTimerFrequency: 5
+  maxAirReservoir: 10
+  bubblePopTimerFrequency: 2
   score: 0
   scorePerSecond: 1
+  gameOverUI: {fileID: 0}
+  airUi: {fileID: 0}
 --- !u!82 &9161553350224295615
 AudioSource:
   m_ObjectHideFlags: 0
