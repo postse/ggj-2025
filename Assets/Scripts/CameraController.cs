@@ -7,41 +7,9 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private float cameraParallaxMultiplier = 2.0f;
-    private static float cameraShakeIntensity = 0.1f;
+    private float cameraShakeIntensity = 0.1f;
 
-    private static bool isShaking = false;
-
-    private static CameraController _instance;
-
-    public static CameraController Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<CameraController>();
-                if (_instance == null)
-                {
-                    GameObject singleton = new GameObject(typeof(CameraController).ToString());
-                    _instance = singleton.AddComponent<CameraController>();
-                }
-            }
-            return _instance;
-        }
-    }
-
-    void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
+    private bool isShaking = false;
 
     void Start()
     {
@@ -62,14 +30,11 @@ public class CameraController : MonoBehaviour
         transform.LookAt(player.transform.position / (cameraParallaxMultiplier * 2));
     }
 
-    public static void ShakeCamera(float seconds, float intensity)
+    public void ShakeCamera(float seconds, float intensity)
     {
         cameraShakeIntensity = intensity;
         isShaking = true;
-        if (Instance != null)
-        {
-            Instance.StartCoroutine(Instance.StopShakeAfterDelay(seconds));
-        }
+        StartCoroutine(StopShakeAfterDelay(seconds));
     }
 
     private IEnumerator StopShakeAfterDelay(float seconds)
