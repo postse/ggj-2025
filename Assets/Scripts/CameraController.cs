@@ -4,6 +4,9 @@ public class CameraController : MonoBehaviour
 {
     private Rigidbody player;
 
+    [SerializeField]
+    private float cameraParallaxMultiplier = 2.0f;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
@@ -15,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.LookAt(player.transform.position / 5f);
+        transform.position = new Vector3(player.transform.position.x / cameraParallaxMultiplier, player.transform.position.y / cameraParallaxMultiplier, transform.position.z);
+        transform.LookAt(player.transform.position / (cameraParallaxMultiplier * 2));
     }
 }

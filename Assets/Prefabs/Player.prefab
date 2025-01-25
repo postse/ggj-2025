@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lateralAcceleration: 200
-  lateralMaxSpeed: 7
+  lateralMaxSpeed: 4
 --- !u!114 &8784474831104696128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5585,3 +5585,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadda2b4eb0a74472a1df79ce50c9eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraParallaxMultiplier: 2
