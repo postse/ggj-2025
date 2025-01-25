@@ -12,6 +12,7 @@ public class BubbleBarUI : MonoBehaviour, IPointerClickHandler
     private float bubbleRadius = 25.0f;
 
     private List<GameObject> bubbles = new List<GameObject>();
+    private AudioSource popSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +21,8 @@ public class BubbleBarUI : MonoBehaviour, IPointerClickHandler
         for (int i = 0; i < maxBubbleCnt; i++) {
             AddBubble();
         }
+
+        popSound = GetComponent<AudioSource>();
         
     }
 
@@ -40,6 +43,7 @@ public class BubbleBarUI : MonoBehaviour, IPointerClickHandler
         bubbles.Remove(bubble);
         Destroy(bubble);
         bubbleCnt--;
+        popSound.Play();
     }
 
     public void OnPointerClick(PointerEventData eventData)
