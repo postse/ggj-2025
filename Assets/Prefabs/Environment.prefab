@@ -51,3 +51,4 @@ MonoBehaviour:
   - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
   straightPipePrefab: {fileID: 8796448342961529273, guid: 1bee0c43a8a014f01af273947d46c463, type: 3}
   pipeCount: 4
+  bubblesPerPipe: 4
