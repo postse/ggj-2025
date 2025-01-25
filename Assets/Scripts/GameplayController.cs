@@ -20,8 +20,10 @@ public class GameplayController : MonoBehaviour
     private ConnectorController turningConnector;
 
     private HurtOverlayController hurtOverlayController;
+    private EnvironmentController environmentController;
+    private MovementController movementController;
 
-    private bool isGameOver = false;
+    public bool isGameOver = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +33,8 @@ public class GameplayController : MonoBehaviour
 
         airUiController = airUi.GetComponentInChildren<BubbleBarUI>();
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
+        environmentController = FindFirstObjectByType<EnvironmentController>();
+        movementController = FindFirstObjectByType<MovementController>();
 
         bubblePopSound = GetComponent<AudioSource>();
 
@@ -39,6 +43,8 @@ public class GameplayController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (isGameOver) return;
+
         if (other.gameObject.CompareTag("Bubble"))
         {
             AddBubbleToReservoir();
@@ -126,6 +132,8 @@ public class GameplayController : MonoBehaviour
         isGameOver = true;
 
         hurtOverlayController.FadeOverlay(1.0f, 0.3f);
+        environmentController.StopMovement(3.0f);
+        movementController.StopMovement();
 
         airUi.SetActive(false);
         gameOverUI.SetActive(true);

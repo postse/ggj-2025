@@ -62,4 +62,10 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    public void StopMovement()
+    {
+        lateralMoveDirection = Vector3.zero;
+        lateralAcceleration = 0;
+        rb.useGravity = true;
+    }
 }

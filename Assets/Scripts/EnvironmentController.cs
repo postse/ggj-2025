@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -18,7 +19,6 @@ public class EnvironmentController : MonoBehaviour
     public int bubblesPerPipe = 8;
     bool connectorSpawned = false;
     int totalPipes = 0;
-    
 
     void Start()
     {
@@ -91,5 +91,25 @@ public class EnvironmentController : MonoBehaviour
             var collectible = Instantiate(collectibles[Random.Range(0, collectibles.Count)], pipe.transform);
             collectible.transform.localPosition = new Vector3(Random.Range(-.1f, 0.1f), collectibleSpacing * i, Random.Range(-.1f, 0.1f));
         }
+    }
+
+    public void StopMovement(float secondsToStop)
+    {
+        StartCoroutine(GraduallyStopMovement(secondsToStop));
+    }
+
+    private IEnumerator GraduallyStopMovement(float secondsToStop)
+    {
+        float initialSpeed = moveSpeed;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < secondsToStop)
+        {
+            moveSpeed = Mathf.Lerp(initialSpeed, 0, elapsedTime / secondsToStop);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        moveSpeed = 0;
     }
 }
