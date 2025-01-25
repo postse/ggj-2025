@@ -119,6 +119,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2048797911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7664483014215352649, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+  m_PrefabInstance: {fileID: 8463826484173215637}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2048797916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048797911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadda2b4eb0a74472a1df79ce50c9eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &535209426885288976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,10 +261,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7664483014215352649, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785187147284039216, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: m_Antialiasing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785187147284039216, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: m_RendererIndex
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7664483014215352649, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048797916}
   m_SourcePrefab: {fileID: 100100000, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
