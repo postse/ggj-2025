@@ -50,6 +50,9 @@ MonoBehaviour:
   - {fileID: 5569602423129916021, guid: 9c3c4d97149b70e459eb9176f4c28a1f, type: 3}
   collectibles:
   - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
+  - {fileID: 1478892130398164570, guid: a9a4471da39b1774fa1c17e0d534b9fd, type: 3}
+  - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
+  - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
   straightPipePrefab: {fileID: 8796448342961529273, guid: 1bee0c43a8a014f01af273947d46c463, type: 3}
   pipeCount: 4
   bubblesPerPipe: 4

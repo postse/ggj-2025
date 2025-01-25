@@ -171,14 +171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: collectibles.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: 'collectibles.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1478892130398164570, guid: a9a4471da39b1774fa1c17e0d534b9fd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
