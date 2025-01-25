@@ -41,20 +41,16 @@ public class MovementController : MonoBehaviour
 
     void OnJump(InputValue value) 
     {
-        ConnectorController cc = gameplayController.GetTurningConnector();
+        ConnectorController cc = gameplayController.GetActiveConnector();
         if (cc) {
-            // Turn connector
+            // Turn the connector
             if (Vector3.Dot(lateralMoveDirection, Vector3.right) > 0) {
-                Debug.Log("Right");
                 cc.StartTurning("Right");
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.left) > 0) {
-                Debug.Log("Left");
                 cc.StartTurning("Left");
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.up) > 0) {
-                Debug.Log("Up");
                 cc.StartTurning("Up");
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.down) > 0) {
-                Debug.Log("Down");
                 cc.StartTurning("Down");
             }
         } else {

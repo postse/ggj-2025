@@ -226,6 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371274666707904906}
+  - component: {fileID: 3775623799869013544}
   m_Layer: 0
   m_Name: DuoL
   m_TagString: Untagged
@@ -250,3 +251,19 @@ Transform:
   - {fileID: 7309378824910215018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3775623799869013544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9159215432039822218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4569be58123fe0a48b14f8a26b493ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Right: 1
+  Up: 1
+  Left: 0
+  Down: 0

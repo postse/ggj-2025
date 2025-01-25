@@ -12,8 +12,9 @@ public class ConnectorController : MonoBehaviour
     public bool Left = false;
     public bool Down = false;
 
+    public float turningSpeed = 3.0f;
     private Quaternion ogRot = Quaternion.identity;
-    public string turnDir = string.Empty;
+    private string turnDir = string.Empty;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -68,34 +69,21 @@ public class ConnectorController : MonoBehaviour
 
     public void Turn(string dir) 
     {
-        float speed = 1.0f * ( 1f - Mathf.Exp( -Time.deltaTime ) );
+        float speed = turningSpeed * ( 1f - Mathf.Exp( -Time.deltaTime ) );
+        Vector3 ogEuler = transform.rotation.eulerAngles;
         Quaternion targetRot = Quaternion.identity;
 
         if (string.Equals(dir, "Right") && Right)
-            targetRot = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+            targetRot = Quaternion.Euler(ogEuler.x, -90.0f, ogEuler.z);
         else if (string.Equals(dir, "Up") && Up)
-            targetRot = Quaternion.Euler(90.0f, 0.0f, 90.0f);
+            targetRot = Quaternion.Euler(90.0f, ogEuler.y, ogEuler.z);
         else if (string.Equals(dir, "Left") && Left)
-            targetRot = Quaternion.Euler(0.0f, 90.0f, 180.0f);
+            targetRot = Quaternion.Euler(ogEuler.x, 90.0f, ogEuler.z);
         else if (string.Equals(dir, "Down") && Down)
-            targetRot = Quaternion.Euler(-90.0f, 0.0f, -90.0f);
+            targetRot = Quaternion.Euler(-90.0f, ogEuler.y, ogEuler.z);
         else return;
 
         transform.rotation = Quaternion.Slerp( transform.rotation, targetRot, speed );
-
-        // Vector3 targetRot = new Vector3(0.0f, 0.0f, 0.0f);
-
-        // if (string.Equals(dir, "Right") && Right)
-        //     targetRot = new Vector3(0.0f, -90.0f, 0.0f);
-        // else if (string.Equals(dir, "Up") && Up)
-        //     targetRot = new Vector3(90.0f, 0.0f, 0.0f);
-        // else if (string.Equals(dir, "Left") && Left)
-        //     targetRot = new Vector3(0.0f, 90.0f, 0.0f);
-        // else if (string.Equals(dir, "Down") && Down)
-        //     targetRot = new Vector3(-90.0f, 0.0f, 0.0f);
-        // else return;
-
-        // transform.Rotate(speed * targetRot, Space.World);
     }
     
     public void StartTurning(string dir) 
