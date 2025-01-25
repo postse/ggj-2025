@@ -45,13 +45,13 @@ public class MovementController : MonoBehaviour
         if (cc) {
             // Turn the connector
             if (Vector3.Dot(lateralMoveDirection, Vector3.right) > 0) {
-                cc.StartTurning("Right");
+                cc.Turn(Direction.Right);
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.left) > 0) {
-                cc.StartTurning("Left");
+                cc.Turn(Direction.Left);
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.up) > 0) {
-                cc.StartTurning("Up");
+                cc.Turn(Direction.Up);
             } else if (Vector3.Dot(lateralMoveDirection, Vector3.down) > 0) {
-                cc.StartTurning("Down");
+                cc.Turn(Direction.Down);
             }
         } else {
             // Other stuff

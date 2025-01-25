@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4569be58123fe0a48b14f8a26b493ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Right: 1
-  Up: 1
-  Left: 1
-  Down: 0
+  AllowRight: 1
+  AllowUp: 1
+  AllowLeft: 1
+  AllowDown: 0
   turningSpeed: 3
 --- !u!1 &5154724307834690969
 GameObject:

@@ -1,20 +1,30 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+public enum Direction {
+    Right,
+    Up,
+    Left,
+    Down,
+    None
+}
 
 public class ConnectorController : MonoBehaviour
 {
 
     private GameObject player;
-    public bool Right = false;
-    public bool Up = false;
-    public bool Left = false;
-    public bool Down = false;
+    public bool AllowRight = false;
+    public bool AllowUp = false;
+    public bool AllowLeft = false;
+    public bool AllowDown = false;
 
-    public float turningSpeed = 3.0f;
+    public float turningSpeed = 5.0f;
     private Quaternion ogRot = Quaternion.identity;
-    private string turnDir = string.Empty;
+    private Direction turnDir = Direction.None;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,10 +38,10 @@ public class ConnectorController : MonoBehaviour
     void Update()
     {
         // if (Time.time < 3) return;
-        if (turnDir != string.Empty)
-        {
-            Turn(turnDir);
-        }
+        // if (turnDir != Direction.None)
+        // {
+        //     Turn(turnDir);
+        // }
 
         if (transform.childCount < 3) {
             Destroy(gameObject);
@@ -63,35 +73,48 @@ public class ConnectorController : MonoBehaviour
 
     void RotateTurnValues()
     {
-        bool oldDown = Down;
-        Down = Left;
-        Left = Up;
-        Up = Right;
-        Right = oldDown;
+        bool oldDown = AllowDown;
+        AllowDown = AllowLeft;
+        AllowLeft = AllowUp;
+        AllowUp = AllowRight;
+        AllowRight = oldDown;
     }
 
-    public void Turn(string dir) 
+    public void Turn(Direction dir) 
     {
-        float speed = turningSpeed * ( 1f - Mathf.Exp( -Time.deltaTime ) );
         Vector3 ogEuler = transform.rotation.eulerAngles;
         Quaternion targetRot = Quaternion.identity;
 
-        if (string.Equals(dir, "Right") && Right)
+        if (dir == Direction.Right && AllowRight)
             targetRot = Quaternion.Euler(ogEuler.x, -90.0f, ogEuler.z);
-        else if (string.Equals(dir, "Up") && Up)
+        else if (dir == Direction.Up && AllowUp)
             targetRot = Quaternion.Euler(90.0f, ogEuler.y, ogEuler.z);
-        else if (string.Equals(dir, "Left") && Left)
+        else if (dir == Direction.Left && AllowLeft)
             targetRot = Quaternion.Euler(ogEuler.x, 90.0f, ogEuler.z);
-        else if (string.Equals(dir, "Down") && Down)
+        else if (dir == Direction.Down && AllowDown)
             targetRot = Quaternion.Euler(-90.0f, ogEuler.y, ogEuler.z);
         else return;
 
-        transform.rotation = Quaternion.Slerp( transform.rotation, targetRot, speed );
+        StopAllCoroutines();
+        StartCoroutine(TurnToTarget(targetRot));
+    }
+
+    IEnumerator TurnToTarget(Quaternion targetRot) {
+        // float speed = turningSpeed * ( 1f - Mathf.Exp( -Time.deltaTime ) );
+        float speed = turningSpeed * Time.deltaTime;
+        // float speed = turningSpeed * Time.deltaTime * Time.deltaTime;
+        while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f) 
+        {
+            transform.rotation = Quaternion.Lerp( transform.rotation, targetRot, speed );
+            // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, speed);
+            yield return null;
+        }
+        transform.rotation = targetRot;
     }
     
-    public void StartTurning(string dir) 
-    {
-        turnDir = dir;
-    }
+    // public void StartTurning(Direction dir) 
+    // {
+    //     turnDir = dir;
+    // }
 
 }
