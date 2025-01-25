@@ -321,53 +321,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2750156160288323682, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
+    - target: {fileID: 5045602553609772362, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: field of view
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5552847252160733495, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: ShapeModule.m_Scale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: ShapeModule.m_Position.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: TrailModule.lifetime.scalar
-      value: 0.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: ShapeModule.randomDirectionAmount
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809881814425290964, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 10
+    - target: {fileID: 6916653130288089704, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
