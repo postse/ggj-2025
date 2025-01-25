@@ -45,6 +45,8 @@ public class GameplayController : MonoBehaviour
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
             RemoveBubbleFromReservoir(obstacle.damage);
             obstacle.Interact();
+
+            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         }
     }
 

@@ -437,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 1016442408}
     - target: {fileID: 4530483706676362177, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: bubblePopTimerFrequency
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5552847252160733495, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: m_Name

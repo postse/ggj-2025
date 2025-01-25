@@ -11,7 +11,7 @@ public class HurtOverlayController : MonoBehaviour
         hurtOverlay = GetComponent<Image>();
     }
 
-    public void Flash(float seconds, float intensity)
+    public void FlashOverlay(float seconds, float intensity)
     {
         StartCoroutine(FlashCoroutine(seconds, intensity));
     }
