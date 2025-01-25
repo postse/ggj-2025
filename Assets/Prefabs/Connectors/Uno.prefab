@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 6454540486208238316}
   m_Layer: 0
   m_Name: Uno
-  m_TagString: Untagged
+  m_TagString: Connector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   Up: 0
   Left: 0
   Down: 0
-  playerHasEntered: 0
+  turningSpeed: 3
 --- !u!1 &5002963919675457338
 GameObject:
   m_ObjectHideFlags: 0

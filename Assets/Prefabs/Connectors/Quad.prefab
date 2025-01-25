@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3971443325287605589}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Untagged
+  m_TagString: Connector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   Up: 1
   Left: 1
   Down: 1
+  turningSpeed: 3
 --- !u!1 &6899150826702121205
 GameObject:
   m_ObjectHideFlags: 0

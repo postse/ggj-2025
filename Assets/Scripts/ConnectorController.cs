@@ -33,6 +33,9 @@ public class ConnectorController : MonoBehaviour
             Turn(turnDir);
         }
 
+        if (transform.childCount < 3) {
+            Destroy(gameObject);
+        }
     }
 
     // Used to initialize the allowed turning directions

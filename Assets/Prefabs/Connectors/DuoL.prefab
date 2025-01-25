@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 3775623799869013544}
   m_Layer: 0
   m_Name: DuoL
-  m_TagString: Untagged
+  m_TagString: Connector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,3 +267,4 @@ MonoBehaviour:
   Up: 1
   Left: 0
   Down: 0
+  turningSpeed: 3

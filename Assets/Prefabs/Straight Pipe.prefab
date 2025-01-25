@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 304156716202793228}
   - component: {fileID: 3385017169767300799}
   m_Layer: 0
-  m_Name: Straight Pipe
+  m_Name: Mesh
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

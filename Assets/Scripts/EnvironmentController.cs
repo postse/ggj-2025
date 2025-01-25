@@ -13,16 +13,16 @@ public class EnvironmentController : MonoBehaviour
     public List<GameObject> collectibles = new List<GameObject>();
 
     public GameObject straightPipePrefab;
-
-    private float pipeLength;
+    public float pipeLength;
     public int pipeCount = 4;
     public int bubblesPerPipe = 8;
-    bool connectorSpawned = false;
+    // bool connectorActive = false;
+    private GameObject activeConnector;
     int totalPipes = 0;
 
     void Start()
     {
-        pipeLength = straightPipePrefab.transform.localScale.z;
+        pipeLength = straightPipePrefab.transform.GetChild(0).localScale.z;
         for (int i = 0; i <= pipeCount; i++)
         {
             InstantiateEnvironment(i);
@@ -33,38 +33,43 @@ public class EnvironmentController : MonoBehaviour
     {
         List<GameObject> objectsToRemove = new List<GameObject>();
         // Move each environment object along the global z-axis
+        bool shouldISpawn = true;
         foreach (GameObject obj in environmentObjects)
         {
-            obj.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
-            if (obj.transform.position.z < -pipeLength)
-            {
+            if (!obj) {
                 objectsToRemove.Add(obj);
+                continue;
             }
+            // Don't move children of Connectors
+            if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector"))
+                obj.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
+            if (obj.transform.position.z < -pipeLength)
+                objectsToRemove.Add(obj);
         }
 
         // Remove objects that have moved off the screen
         for(int i = 0; i < objectsToRemove.Count; i++)
         {
             var obj = objectsToRemove[i];
+            if (!obj) {
+                environmentObjects.Remove(obj);
+                continue;
+            }
+            if (!activeConnector && shouldISpawn) {
+                if (Random.Range(0, 2) == 0)
+                    InstantiateConnector();
+                else 
+                    InstantiateEnvironment(pipeCount);
+                shouldISpawn = false;
+            } else if (obj == activeConnector)
+            {
+                activeConnector = null;
+            }
+            
+            if (obj.CompareTag("Connector")) continue;
+
             environmentObjects.Remove(obj);
             Destroy(obj);
-            if (!connectorSpawned) {
-                // 1 in 8 chance of spawning a connector
-                if (Random.Range(0, 8) == 0)
-                {
-                    InstantiateConnector();
-                }
-                else
-                {
-                    InstantiateEnvironment(pipeCount);
-                }
-            } 
-            else if (connectorSpawned && obj.CompareTag("Connector"))
-            {
-                // If a connector has been spawned, don't spawn anything else until it has been removed
-                connectorSpawned = false;
-                InstantiateEnvironment();
-            }
         }
     }
 
@@ -73,25 +78,28 @@ public class EnvironmentController : MonoBehaviour
         float randAngle = Random.Range(0, 4) * 90.0f;
         var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, randAngle), transform);
         environmentObjects.Add(connector);
-        connectorSpawned = true;
+        activeConnector = connector;
         connector.name = "Connector" + totalPipes++;
 
         // Generate 'pipeCount' pipes in each of the 4 directions attached to the connector
-        // for (int i = 0; i < 4; i++) {
-        //     for (int j = 1; j < pipeCount + 1; i++) {
-        //         float right = Mathf.Cos(i * Mathf.PI / 2);
-        //         float up = Mathf.Sin(i * Mathf.PI / 2);
-        //         var straightPipe = Instantiate(straightPipePrefab, j * new Vector3(right * pipeLength, up * pipeLength, pipeLength), Quaternion.Euler(90, up * 90, 0), connector.transform);
-        //         environmentObjects.Add(straightPipe);
-        //     }
-        // }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 1; j < pipeCount + 1; j++) {
+                // int j = 1;
+                float rightSelector = Mathf.Cos(i * Mathf.PI / 2);
+                float upSelector = Mathf.Sin(i * Mathf.PI / 2);
+                float rightOffset = rightSelector * j * pipeLength;
+                float upOffset = upSelector * j * pipeLength;
+                var straightPipe = Instantiate(straightPipePrefab, new Vector3(rightOffset, upOffset, pipeLength * pipeCount), Quaternion.Euler(upSelector * 90, rightSelector * 90, 0), connector.transform);
+                environmentObjects.Add(straightPipe);
+            }
+        }
     }
 
     public void InstantiateEnvironment(int offset = 0) {
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
-        PlaceBubbleCollectibles(straightPipe);
+        // PlaceBubbleCollectibles(straightPipe);
         straightPipe.name = "Pipe" + totalPipes++;
     }
 

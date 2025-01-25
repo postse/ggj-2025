@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2340137004036319713}
   m_Layer: 0
   m_Name: DuoI
-  m_TagString: Untagged
+  m_TagString: Connector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   Up: 0
   Left: 1
   Down: 0
-  turnDir: 
+  turningSpeed: 3
 --- !u!1 &5568993571671430940
 GameObject:
   m_ObjectHideFlags: 0
