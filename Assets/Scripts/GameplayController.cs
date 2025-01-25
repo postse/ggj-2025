@@ -9,11 +9,23 @@ public class GameplayController : MonoBehaviour
     public int score = 0;
     public int scorePerSecond = 1;
 
+    private BubbleBarUI uiController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(BubblePopTimer());
         StartCoroutine(ScoreTimer());
+        uiController = GameObject.Find("AirUI").GetComponentInChildren<BubbleBarUI>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bubble"))
+        {
+            AddBubbleToReservoir();
+            Destroy(other.gameObject);
+        }
     }
 
     IEnumerator BubblePopTimer()
@@ -50,11 +62,13 @@ public class GameplayController : MonoBehaviour
     public void RemoveBubbleFromReservoir()
     {
         airReservoir--;
+        uiController.PopBubble();
     }
 
     public void AddBubbleToReservoir()
     {
         airReservoir++;
+        uiController.AddBubble();
     }
 
     void GameOver() {
