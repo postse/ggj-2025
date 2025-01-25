@@ -13,7 +13,7 @@ public class EnvironmentController : MonoBehaviour
 
     public GameObject straightPipePrefab;
 
-    readonly private float pipeLength = 30f;
+    private float pipeLength;
     public int pipeCount = 4;
     public int bubblesPerPipe = 8;
     bool connectorSpawned = false;
@@ -22,6 +22,7 @@ public class EnvironmentController : MonoBehaviour
 
     void Start()
     {
+        pipeLength = straightPipePrefab.transform.localScale.z;
         for (int i = 0; i <= pipeCount; i++)
         {
             InstantiateEnvironment(i);
