@@ -13,7 +13,7 @@ public class EnvironmentController : MonoBehaviour
 
     public GameObject straightPipePrefab;
 
-    readonly private float pipeLength = 28f;
+    readonly private float pipeLength = 30f;
     public int pipeCount = 4;
     public int bubblesPerPipe = 8;
     bool connectorSpawned = false;
