@@ -11,6 +11,38 @@ public class CameraController : MonoBehaviour
 
     private static bool isShaking = false;
 
+    private static CameraController _instance;
+
+    public static CameraController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<CameraController>();
+                if (_instance == null)
+                {
+                    GameObject singleton = new GameObject(typeof(CameraController).ToString());
+                    _instance = singleton.AddComponent<CameraController>();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
@@ -34,11 +66,9 @@ public class CameraController : MonoBehaviour
     {
         cameraShakeIntensity = intensity;
         isShaking = true;
-        CameraController instance = FindAnyObjectByType<CameraController>();
-
-        if (instance != null)
+        if (Instance != null)
         {
-            instance.StartCoroutine(instance.StopShakeAfterDelay(seconds));
+            Instance.StartCoroutine(Instance.StopShakeAfterDelay(seconds));
         }
     }
 

@@ -1,25 +1,25 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
 {
     public int airReservoir = 10;
+    public int maxAirReservoir = 10;
     public float bubblePopTimerFrequency = 2.0f;
 
     public int score = 0;
     public int scorePerSecond = 1;
 
-    private BubbleBarUI uiController;
-
-    private AudioSource bubblePopSound;
+    private BubbleBarUI uiController;   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(BubblePopTimer());
         StartCoroutine(ScoreTimer());
+
         uiController = GameObject.Find("AirUI").GetComponentInChildren<BubbleBarUI>();
-        bubblePopSound = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -27,8 +27,12 @@ public class GameplayController : MonoBehaviour
         if (other.gameObject.CompareTag("Bubble"))
         {
             AddBubbleToReservoir();
-            bubblePopSound.Play();
-            Destroy(other.gameObject);
+            BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
+            bubble.Interact();
+        } else if (other.gameObject.CompareTag("Obstacle")) {
+            ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
+            RemoveBubbleFromReservoir(obstacle.damage);
+            obstacle.Interact();
         }
     }
 
@@ -63,16 +67,21 @@ public class GameplayController : MonoBehaviour
         score += scoreToAdd;
     }
 
-    public void RemoveBubbleFromReservoir()
+    public void RemoveBubbleFromReservoir(int bubblesToRemove = 1)
     {
-        airReservoir--;
-        uiController.PopBubble();
+        airReservoir = Math.Max(0, airReservoir - bubblesToRemove);
+        for (int i = 0; i < bubblesToRemove; i++) {
+            uiController.PopBubble();
+        }
     }
 
-    public void AddBubbleToReservoir()
+    public void AddBubbleToReservoir(int bubblesToAdd = 1)
     {
-        airReservoir++;
-        uiController.AddBubble();
+        airReservoir = Math.Min(maxAirReservoir, airReservoir + bubblesToAdd);
+        for (int i = 0; i < bubblesToAdd; i++)
+        {
+            uiController.AddBubble();
+        }
     }
 
     void GameOver() {
