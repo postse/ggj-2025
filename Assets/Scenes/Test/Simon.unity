@@ -221,11 +221,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13d677a162a0af94599c5925a305a721, type: 3}
---- !u!1 &1016442408 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8923619096589053611, guid: 13d677a162a0af94599c5925a305a721, type: 3}
-  m_PrefabInstance: {fileID: 627146109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &535209426885288976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +278,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a784cac863409426ab21837804d05a6d, type: 3}
+--- !u!1 &3711358880157723050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7722045367967854416, guid: 13d677a162a0af94599c5925a305a721, type: 3}
+  m_PrefabInstance: {fileID: 627146109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8463826484173215637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ PrefabInstance:
     - target: {fileID: 4530483706676362177, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: gameOverUI
       value: 
-      objectReference: {fileID: 1016442408}
+      objectReference: {fileID: 3711358880157723050}
     - target: {fileID: 4530483706676362177, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: bubblePopTimerFrequency
       value: 0.5
