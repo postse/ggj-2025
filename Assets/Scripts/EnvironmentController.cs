@@ -13,14 +13,16 @@ public class EnvironmentController : MonoBehaviour
 
     public GameObject straightPipePrefab;
 
-    readonly private float pipeLength = 28f;
+    private float pipeLength;
     public int pipeCount = 4;
+    public int bubblesPerPipe = 8;
     bool connectorSpawned = false;
     int totalPipes = 0;
     
 
     void Start()
     {
+        pipeLength = straightPipePrefab.transform.localScale.z;
         for (int i = 0; i <= pipeCount; i++)
         {
             InstantiateEnvironment(i);
@@ -83,11 +85,11 @@ public class EnvironmentController : MonoBehaviour
     }
 
     public void PlaceBubbleCollectibles(GameObject pipe) {
-        float collectibleSpacing = 1;
-        for (int i = -5; i < 6; i++)
+        float collectibleSpacing = 1f / bubblesPerPipe;
+        for (int i = -bubblesPerPipe / 2; i < bubblesPerPipe / 2; i++)
         {
             var collectible = Instantiate(collectibles[Random.Range(0, collectibles.Count)], pipe.transform);
-            collectible.transform.localPosition = new Vector3(Random.Range(-.5f, .5f), collectibleSpacing * i, Random.Range(-.5f, .5f));
+            collectible.transform.localPosition = new Vector3(Random.Range(-.1f, 0.1f), collectibleSpacing * i, Random.Range(-.1f, 0.1f));
         }
     }
 }

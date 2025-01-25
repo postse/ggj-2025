@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class BubbleController : MonoBehaviour
 {
-    private AudioSource popSound;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    AudioSource bubblePopSound;
+
+    // Update is called once per frame
     void Start()
     {
-        popSound = GetComponent<AudioSource>();
+        bubblePopSound = GetComponent<AudioSource>();
     }
 
-    public void PlaySound() {
-        popSound.Play();
+    public void Interact()
+    {
+        bubblePopSound.Play();
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, bubblePopSound.clip.length);
     }
 }
