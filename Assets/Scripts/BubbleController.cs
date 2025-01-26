@@ -12,7 +12,9 @@ public class BubbleController : MonoBehaviour
 
     public void Interact()
     {
-        bubblePopSound.Play();
+        if (bubblePopSound == null) {
+            bubblePopSound.Play();
+        }
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
         Destroy(gameObject, bubblePopSound.clip.length);

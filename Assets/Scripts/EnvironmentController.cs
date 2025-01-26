@@ -18,6 +18,24 @@ public class EnvironmentController : MonoBehaviour
     public List<GameObject> connectors = new List<GameObject>();
     public List<Collectible> collectibles = new List<Collectible>();
 
+    List<Collectible> normalizedCollectibles {
+        get {
+            // Normalize collectible weights
+            float totalWeight = 0;
+            List<Collectible> col = new List<Collectible>();
+            foreach (var collectible in collectibles)
+                totalWeight += collectible.weight;
+            for (int i = 0; i < collectibles.Count; i++) {
+                var tempCollectible = collectibles[i];
+                Collectible normalizedCollectible = new();
+                normalizedCollectible.obj = tempCollectible.obj;
+                normalizedCollectible.weight = tempCollectible.weight / totalWeight;
+                col.Add(normalizedCollectible);
+            }
+            return col;
+        }
+    }
+
     public GameObject straightPipePrefab;
     public float pipeLength;
     public float pipeRadius = 4.0f;
@@ -36,15 +54,7 @@ public class EnvironmentController : MonoBehaviour
             InstantiateEnvironment(i);
         }
 
-        // Normalize collectible weights
-        float totalWeight = 0;
-        foreach (var collectible in collectibles)
-            totalWeight += collectible.weight;
-        for (int i = 0; i < collectibles.Count; i++) {
-            var tempCollectible = collectibles[i];
-            tempCollectible.weight /= totalWeight;
-            collectibles[i] = tempCollectible;
-        }
+        
     }
 
     void Update()
@@ -175,15 +185,16 @@ public class EnvironmentController : MonoBehaviour
         for (int i = -collectiblesPerPipe / 2; i < collectiblesPerPipe / 2; i++)
         {
             // Randomly generate items based on their weights
-            float rand = UnityEngine.Random.Range(0.0f, 1.0f);
+            float rand = Random.Range(0.0f, 1.0f);
             GameObject collectible = null;
-            float thresh = 0;
+            float thresh = 0.0f;
             for (int j = 0; j < collectibles.Count; j++)
             {
-                thresh += collectibles[j].weight;
+                thresh += normalizedCollectibles[j].weight;
+                Debug.Log("Threshold: " + thresh + ", Name: " + collectibles[j].obj.name + ", Rand: " + rand);
                 if (rand < thresh)
                 {
-                    collectible = Instantiate(collectibles[j].obj, pipe.transform);
+                    collectible = Instantiate(normalizedCollectibles[j].obj, pipe.transform);
                     break;
                 }
             }
@@ -191,7 +202,7 @@ public class EnvironmentController : MonoBehaviour
 
             if (collectible.name.StartsWith("Electrical Wires"))
             {
-                float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
+                float angle = Random.Range(0f, Mathf.PI * 2);
                 collectible.transform.localPosition = new Vector3(pipeRadius * Mathf.Cos(angle), pipeRadius * Mathf.Sin(angle), collectibleSpacing * i);
                 collectible.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg - 90f);
             }

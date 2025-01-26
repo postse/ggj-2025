@@ -15,7 +15,11 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
+        AudioSource audioSource = startButton.GetComponent<AudioSource>();
+        audioSource.enabled = false;
         startButton.Select();
+        audioSource.enabled = true;
+
     }
 
     // Update is called once per frame

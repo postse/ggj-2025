@@ -24,14 +24,17 @@ public class GameplayController : MonoBehaviour
     private EnvironmentController environmentController;
     private MovementController movementController;
     private CameraController cameraController;
+    private AirTextController airTextController;
 
     public bool isGameOver = false;
-    
+
     public GameObject hampter;
     public float wiggleSpeed = 1.0f;
     public float maxWiggle = 90.0f;
-    public float wiggleOffset = 0.0f;   
-    public float bounceOffWallTime = 1.0f;
+    public float wiggleOffset = 0.0f;
+    public float bounceOffWallTime = 0.5f;
+    public float superBubbleInvincibilityTime = 5.0f;
+    public bool superBubbleEnabled = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,11 +52,12 @@ public class GameplayController : MonoBehaviour
         environmentController = FindFirstObjectByType<EnvironmentController>();
         movementController = FindFirstObjectByType<MovementController>();
         cameraController = FindFirstObjectByType<CameraController>();
+        airTextController = FindFirstObjectByType<AirTextController>();
 
         airUiController.SetBubbles(airReservoir);
     }
 
-    void Update() 
+    void Update()
     {
         if (isGameOver) return;
         hampter.transform.rotation = Quaternion.Euler(maxWiggle * Mathf.Sin(Time.time * wiggleSpeed) + wiggleOffset, 0, 90);
@@ -77,31 +81,47 @@ public class GameplayController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bubble"))
         {
-            AddBubbleToReservoir();
-            BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
-            bubble.Interact();
+            if (other.gameObject.name.Contains("SuperBubble"))
+            {
+                AddBubbleToReservoir(maxAirReservoir);
+                BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
+                bubble.Interact();
+                AddScore(bubbleValue * 10);
+                superBubbleEnabled = true;
+                airTextController.SetInvincibilityText(superBubbleInvincibilityTime);
 
-            AddScore(bubbleValue);
+                StartCoroutine(DisableSuperBubble());
+            }
+            else
+            {
+                AddBubbleToReservoir();
+                BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
+                bubble.Interact();
+                AddScore(bubbleValue);
+            }
         }
         else if (other.gameObject.CompareTag("Obstacle"))
         {
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
             RemoveBubbleFromReservoir(obstacle.damage, true);
             obstacle.Interact();
-            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
-        } else if (other.gameObject.CompareTag("Connector")) {
+        }
+        else if (other.gameObject.CompareTag("Connector"))
+        {
             activeConnector = other.gameObject.GetComponentInParent<ConnectorController>();
         }
     }
 
-    void OnTriggerExit(Collider other) 
+    void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Connector")) {
+        if (other.gameObject.CompareTag("Connector"))
+        {
             activeConnector = null;
         }
     }
 
-    public ConnectorController GetActiveConnector() {
+    public ConnectorController GetActiveConnector()
+    {
         return activeConnector;
     }
 
@@ -136,6 +156,8 @@ public class GameplayController : MonoBehaviour
 
     public void RemoveBubbleFromReservoir(int bubblesToRemove = 1, bool fromObstacle = false)
     {
+        if (superBubbleEnabled) return;
+
         airReservoir = Math.Max(0, airReservoir - bubblesToRemove);
         for (int i = 0; i < bubblesToRemove; i++)
         {
@@ -173,5 +195,11 @@ public class GameplayController : MonoBehaviour
         airUi.SetActive(false);
         gameOverUI.SetActive(true);
         GameObject.Find("GameOverScoreText").GetComponent<TextMeshProUGUI>().SetText("Score: " + score);
+    }
+
+    private IEnumerator DisableSuperBubble()
+    {
+        yield return new WaitForSeconds(superBubbleInvincibilityTime);
+        superBubbleEnabled = false;
     }
 }
