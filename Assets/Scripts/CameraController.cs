@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
         cameraDistance = defaultCameraDistance;
 
-        SetRenderResolution(640);
+        SetRenderResolution(800);
     }
 
     void LateUpdate()
