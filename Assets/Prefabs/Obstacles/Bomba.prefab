@@ -170,6 +170,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0ae408f1a3f5084cb5ba7b7b7c42ae8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5676818524134434729}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0ae408f1a3f5084cb5ba7b7b7c42ae8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2579573999956319430}
     - targetCorrespondingSourceObject: {fileID: -1014268425052216762, guid: c0ae408f1a3f5084cb5ba7b7b7c42ae8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3801470735923878536}
@@ -194,6 +197,7 @@ MonoBehaviour:
   damage: 4
   shakeDuration: 0.5
   shakeMagnitude: 0.1
+  audioDurationOverride: 0
 --- !u!82 &5676818524134434729
 AudioSource:
   m_ObjectHideFlags: 0
@@ -291,6 +295,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2579573999956319430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478892130398164570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7614431807162009933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1014268425052216762, guid: c0ae408f1a3f5084cb5ba7b7b7c42ae8, type: 3}
