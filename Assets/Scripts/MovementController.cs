@@ -16,6 +16,8 @@ public class MovementController : MonoBehaviour
 
     private GameplayController gameplayController;
 
+    public float clampedWidth = 4f;
+
     void Start()
     {
         rb = GetComponentInChildren<Rigidbody>();
@@ -29,6 +31,8 @@ public class MovementController : MonoBehaviour
 
         // clamp the velocity to max speed
         rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, lateralMaxSpeed);
+
+        rb.transform.position = Vector3.ClampMagnitude(rb.transform.position, clampedWidth);
     }
 
     void OnMove(InputValue value)
