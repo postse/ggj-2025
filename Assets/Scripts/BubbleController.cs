@@ -12,7 +12,7 @@ public class BubbleController : MonoBehaviour
 
     public void Interact()
     {
-        if (bubblePopSound == null) {
+        if (bubblePopSound != null) {
             bubblePopSound.Play();
         }
         GetComponent<MeshRenderer>().enabled = false;
