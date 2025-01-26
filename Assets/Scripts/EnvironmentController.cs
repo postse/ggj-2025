@@ -14,6 +14,7 @@ public class EnvironmentController : MonoBehaviour
 
     public GameObject straightPipePrefab;
     public float pipeLength;
+    public float pipeRadius = 4.0f;
     public int pipeCount = 4;
     public int bubblesPerPipe = 8;
     // bool connectorActive = false;
@@ -91,6 +92,7 @@ public class EnvironmentController : MonoBehaviour
                 float upOffset = upSelector * j * pipeLength;
                 var straightPipe = Instantiate(straightPipePrefab, new Vector3(rightOffset, upOffset, pipeLength * pipeCount), Quaternion.Euler(upSelector * 90, rightSelector * 90, 0), connector.transform);
                 environmentObjects.Add(straightPipe);
+                PlaceBubbleCollectibles(straightPipe);
             }
         }
     }
@@ -104,11 +106,11 @@ public class EnvironmentController : MonoBehaviour
     }
 
     public void PlaceBubbleCollectibles(GameObject pipe) {
-        float collectibleSpacing = 1f / bubblesPerPipe;
+        float collectibleSpacing = pipeLength / bubblesPerPipe;
         for (int i = -bubblesPerPipe / 2; i < bubblesPerPipe / 2; i++)
         {
             var collectible = Instantiate(collectibles[Random.Range(0, collectibles.Count)], pipe.transform);
-            collectible.transform.localPosition = new Vector3(Random.Range(-.1f, 0.1f), collectibleSpacing * i, Random.Range(-.1f, 0.1f));
+            collectible.transform.localPosition = new Vector3(Random.Range(-pipeRadius, pipeRadius), Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
         }
     }
 
