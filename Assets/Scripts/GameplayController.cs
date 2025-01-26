@@ -25,6 +25,7 @@ public class GameplayController : MonoBehaviour
     private MovementController movementController;
     private CameraController cameraController;
     private AirTextController airTextController;
+    public AudioSource wallBonkSound;
 
     public bool isGameOver = false;
 
@@ -36,6 +37,7 @@ public class GameplayController : MonoBehaviour
     public float superBubbleInvincibilityTime = 5.0f;
     public bool superBubbleEnabled = false;
     public bool collisionDisabled = false;
+    public int wallBounceDmg = 4;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,8 +75,9 @@ public class GameplayController : MonoBehaviour
             float moveSpeed = environmentController.GetSpeed();
             environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
             cameraController.ShakeCamera(0.2f, 0.5f);
-            RemoveBubbleFromReservoir(0, true);
+            RemoveBubbleFromReservoir(wallBounceDmg, true);
             hurtOverlayController.FlashOverlay(0.2f, 0.2f);
+            wallBonkSound.Play();
         }
     }
 

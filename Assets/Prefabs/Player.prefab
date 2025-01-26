@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 412524162082546681}
   - component: {fileID: 3155408541314245489}
   - component: {fileID: 4530483706676362177}
-  - component: {fileID: 9161553350224295615}
   - component: {fileID: 9020262889232041690}
+  - component: {fileID: 3145169383741003702}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Untagged
@@ -81,12 +81,39 @@ MonoBehaviour:
   bubbleValue: 5
   score: 0
   scorePerSecond: 1
+  wallBonkSound: {fileID: 3145169383741003702}
   isGameOver: 0
   hampter: {fileID: 2048836721671166111}
   wiggleSpeed: 8
   maxWiggle: 75
   wiggleOffset: -35
---- !u!82 &9161553350224295615
+  bounceOffWallTime: 0.5
+  superBubbleInvincibilityTime: 5
+  superBubbleEnabled: 0
+  collisionDisabled: 0
+  wallBounceDmg: 4
+--- !u!135 &9020262889232041690
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5025863439747697791}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &3145169383741003702
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,9 +123,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 60abc382af18a1f4c93d5d8e14a2e940, type: 3}
-  m_Resource: {fileID: 8300000, guid: 60abc382af18a1f4c93d5d8e14a2e940, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: d3b35ee05e470d3408f25ad0f43f3367, type: 3}
+  m_Resource: {fileID: 8300000, guid: d3b35ee05e470d3408f25ad0f43f3367, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -183,27 +210,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &9020262889232041690
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5025863439747697791}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5552847252160733495
 GameObject:
   m_ObjectHideFlags: 0
