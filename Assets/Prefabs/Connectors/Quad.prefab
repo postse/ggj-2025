@@ -51,6 +51,7 @@ MonoBehaviour:
   AllowUp: 1
   AllowLeft: 1
   AllowDown: 1
+  arrowPrefab: {fileID: 7125558184656965942, guid: 42dfabb18ce368640b15e5bfb6746e46, type: 3}
 --- !u!1 &4495848056413755005
 GameObject:
   m_ObjectHideFlags: 0

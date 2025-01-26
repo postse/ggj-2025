@@ -15,6 +15,8 @@ public class EnvironmentController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 10.0f;
 
+    public float superBubbleSpeedMultiplier = 1.0f;
+
     private List<GameObject> environmentObjects = new List<GameObject>();
     public List<GameObject> connectors = new List<GameObject>();
     public List<Collectible> collectibles = new List<Collectible>();
@@ -58,7 +60,7 @@ public class EnvironmentController : MonoBehaviour
             }
             // Don't move children of Connectors
             if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector")) {   
-                obj.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
+                obj.transform.Translate(Vector3.back * moveSpeed * superBubbleSpeedMultiplier * Time.deltaTime, Space.World);
             }
         }
     }
@@ -166,7 +168,7 @@ public class EnvironmentController : MonoBehaviour
 
     public void PlaceCollectibles(GameObject pipe) {
         float collectibleSpacing = pipeLength / collectiblesPerPipe;
-        for (int i = -collectiblesPerPipe / 2; i <= collectiblesPerPipe / 2; i++)
+        for (int i = -collectiblesPerPipe / 2; i < collectiblesPerPipe / 2; i++)
         {
             Collectible collectibleTemplate = GetRandomCollectible();
             GameObject collectible = Instantiate(collectibleTemplate.obj, pipe.transform);
@@ -220,5 +222,17 @@ public class EnvironmentController : MonoBehaviour
         }
 
         moveSpeed = 0;
+    }
+
+    public void SetSuperBubbleSpeedMultiplier(float seconds, float multiplier)
+    {
+        StartCoroutine(superBubbleSpeedMultiplierTimer(seconds, multiplier));
+    }
+
+    private IEnumerator superBubbleSpeedMultiplierTimer(float seconds, float multiplier)
+    {
+        superBubbleSpeedMultiplier = multiplier;
+        yield return new WaitForSeconds(seconds);
+        superBubbleSpeedMultiplier = 1.0f;
     }
 }

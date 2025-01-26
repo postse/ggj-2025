@@ -101,8 +101,10 @@ public class GameplayController : MonoBehaviour
                 AddScore(bubbleValue * 10);
                 superBubbleEnabled = true;
                 airTextController.SetInvincibilityText(superBubbleInvincibilityTime);
+                environmentController.superBubbleSpeedMultiplier = 2.0f;
 
                 StartCoroutine(DisableSuperBubble());
+                environmentController.SetSuperBubbleSpeedMultiplier(superBubbleInvincibilityTime - .5f, 2f);
             }
             else
             {
