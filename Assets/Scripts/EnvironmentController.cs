@@ -16,6 +16,7 @@ public class EnvironmentController : MonoBehaviour
     public float defaultMoveSpeed;
 
     public float superBubbleSpeedMultiplier = 1.0f;
+    public float difficultySpeedMultiplier = 1.0f;
 
     private List<GameObject> environmentObjects = new List<GameObject>();
     public List<GameObject> connectors = new List<GameObject>();
@@ -40,6 +41,8 @@ public class EnvironmentController : MonoBehaviour
         }
         defaultMoveSpeed = moveSpeed;
         ChangeSpeeds(new float[] { moveSpeed }, 3f);
+
+        StartCoroutine(RaiseDifficulty());
     }
 
     void Update()
@@ -60,7 +63,9 @@ public class EnvironmentController : MonoBehaviour
             }
             // Don't move children of Connectors
             if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector")) {   
-                obj.transform.Translate(Vector3.back * moveSpeed * superBubbleSpeedMultiplier * Time.deltaTime, Space.World);
+                float currentMoveSpeed = moveSpeed * difficultySpeedMultiplier * superBubbleSpeedMultiplier;
+                Debug.Log(currentMoveSpeed);
+                obj.transform.Translate(Vector3.back * currentMoveSpeed * Time.deltaTime, Space.World);
             }
         }
     }
@@ -235,4 +240,12 @@ public class EnvironmentController : MonoBehaviour
         superBubbleSpeedMultiplier = 1.0f;
     }
 
+    private IEnumerator RaiseDifficulty()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            difficultySpeedMultiplier += 0.005f;
+        }
+    }
 }
