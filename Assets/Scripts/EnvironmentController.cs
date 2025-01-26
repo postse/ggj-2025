@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public struct Collectible {
     public GameObject obj;
     public float weight;
@@ -25,7 +24,8 @@ public class EnvironmentController : MonoBehaviour
     public int pipeCount = 4;
     public int bubblesPerPipe = 8;
     // bool connectorActive = false;
-    private GameObject activeConnector;
+    [SerializeField]
+    private bool connectorActive = false;
     int totalPipes = 0;
 
     void Start()
@@ -49,45 +49,60 @@ public class EnvironmentController : MonoBehaviour
 
     void Update()
     {
-        List<GameObject> objectsToRemove = new List<GameObject>();
+        MoveObjects();
+        if (RemoveObjects())
+        {
+            SpawnObjects();
+        }
+    }
+
+    void MoveObjects() {
         // Move each environment object along the global z-axis
-        bool shouldISpawn = true;
         foreach (GameObject obj in environmentObjects)
         {
             if (!obj) {
-                objectsToRemove.Add(obj);
                 continue;
             }
             // Don't move children of Connectors
-            if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector"))
+            if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector")) {   
                 obj.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
-            if (obj.transform.position.z < -pipeLength)
-                objectsToRemove.Add(obj);
+            }
         }
+    }
 
-        // Remove objects that have moved off the screen
-        for(int i = 0; i < objectsToRemove.Count; i++)
+    bool RemoveObjects() {
+        // Remove objects that have been deleted
+        environmentObjects.RemoveAll(obj => obj == null);
+
+        // Remove objects that have moved out of the camera view
+        int numObjects = environmentObjects.Count;
+        foreach (var obj in environmentObjects.ToArray())
         {
-            var obj = objectsToRemove[i];
-            if (!obj) {
+            if (obj.transform.position.z < -pipeLength) {
+                Destroy(obj);
                 environmentObjects.Remove(obj);
-                continue;
-            }
-            if (!activeConnector && shouldISpawn) {
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                    InstantiateConnector();
-                else 
-                    InstantiateEnvironment(pipeCount);
-                shouldISpawn = false;
-            } else if (obj == activeConnector)
-            {
-                activeConnector = null;
-            }
-            
-            if (obj.CompareTag("Connector")) continue;
 
-            environmentObjects.Remove(obj);
-            Destroy(obj);
+                if (obj.CompareTag("Connector")) {
+                    // If the item removed was a connector, set connectorActive to false to start spawning again
+                    connectorActive = false;
+                }
+            }
+        }
+        bool removedObjects = numObjects != environmentObjects.Count;
+
+        return removedObjects;
+    }
+
+    void SpawnObjects() {
+        if (!connectorActive) {
+            // Only spawn items if there is no active connector
+            if (Random.Range(0, 2) == 0) {
+                InstantiateConnector();
+            }
+            else {
+                // Instantiate a straight pipe at the end of the currently existing pipes
+                InstantiateEnvironment(pipeCount);
+            }
         }
     }
 
@@ -96,17 +111,25 @@ public class EnvironmentController : MonoBehaviour
         float randAngle = UnityEngine.Random.Range(0, 4) * 90.0f;
         var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, randAngle), transform);
         environmentObjects.Add(connector);
-        activeConnector = connector;
+        connectorActive = true;
         connector.name = "Connector" + totalPipes++;
 
         // Generate 'pipeCount' pipes in each of the 4 directions attached to the connector
         for (int i = 0; i < 4; i++) {
+            Direction dir = i switch {
+                0 => Direction.Right,
+                1 => Direction.Up,
+                2 => Direction.Left,
+                3 => Direction.Down,
+                _ => Direction.Right
+            };
             for (int j = 1; j < pipeCount + 1; j++) {
                 float rightSelector = Mathf.Cos(i * Mathf.PI / 2);
                 float upSelector = Mathf.Sin(i * Mathf.PI / 2);
                 float rightOffset = rightSelector * j * pipeLength;
                 float upOffset = upSelector * j * pipeLength;
                 var straightPipe = Instantiate(straightPipePrefab, new Vector3(rightOffset, upOffset, pipeLength * pipeCount), Quaternion.Euler(upSelector * 90, rightSelector * 90, 0), connector.transform);
+                straightPipe.name = "PipeDir" + dir + j; 
                 environmentObjects.Add(straightPipe);
                 PlaceBubbleCollectibles(straightPipe);
             }
