@@ -4,24 +4,34 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    enum SelectedMenuItem
+    {
+        Start,
+        Instructions,
+        Exit
+    }
 
     public Button startButton;
-    public Button exitButton;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        startButton.onClick.AddListener(StartGame);
-        exitButton.onClick.AddListener(ExitGame);
+        startButton.Select();
     }
 
     // Update is called once per frame
-    void StartGame()
+    public void StartGame()
     {
         SceneManager.LoadScene("Gameplay");
     }
 
-    void ExitGame()
+    public void Instructions()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
+
+    public void ExitGame()
     {
         Application.Quit();
     }
+
 }
