@@ -70,7 +70,7 @@ public class GameplayController : MonoBehaviour
             float moveSpeed = environmentController.GetSpeed();
             environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
             cameraController.ShakeCamera(0.2f, 0.5f);
-            RemoveBubbleFromReservoir(0, true);
+            RemoveBubbleFromReservoir(4, true);
             hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         }
     }
