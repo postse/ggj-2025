@@ -23,6 +23,7 @@ public class GameplayController : MonoBehaviour
     private HurtOverlayController hurtOverlayController;
     private EnvironmentController environmentController;
     private MovementController movementController;
+    private CameraController cameraController;
 
     public bool isGameOver = false;
     
@@ -30,6 +31,7 @@ public class GameplayController : MonoBehaviour
     public float wiggleSpeed = 1.0f;
     public float maxWiggle = 90.0f;
     public float wiggleOffset = 0.0f;   
+    public float bounceOffWallTime = 1.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,13 +48,27 @@ public class GameplayController : MonoBehaviour
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
         environmentController = FindFirstObjectByType<EnvironmentController>();
         movementController = FindFirstObjectByType<MovementController>();
+        cameraController = FindFirstObjectByType<CameraController>();
 
         airUiController.SetBubbles(airReservoir);
     }
 
     void Update() 
     {
+        if (isGameOver) return;
         hampter.transform.rotation = Quaternion.Euler(maxWiggle * Mathf.Sin(Time.time * wiggleSpeed) + wiggleOffset, 0, 90);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (string.Equals(collision.gameObject.name, "WallTrigger"))
+        {
+            float moveSpeed = environmentController.GetSpeed();
+            environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
+            cameraController.ShakeCamera(0.2f, 0.5f);
+            RemoveBubbleFromReservoir(0, true);
+            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
+        }
     }
 
     void OnTriggerEnter(Collider other)

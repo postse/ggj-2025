@@ -70,6 +70,32 @@ public class EnvironmentController : MonoBehaviour
         }
     }
 
+    public void ChangeSpeeds(float[] newSpeed, float time) {
+        StartCoroutine(ChangeSpeedAsync(newSpeed, time));
+    }
+
+    // Change the speed of environment to series of values. Each takes 'time' seconds
+    IEnumerator ChangeSpeedAsync(float[] newSpeeds, float time) {
+        moveSpeed = 0;
+        foreach (float newSpeed in newSpeeds) {
+            float timeElapsed = 0;
+            float initialSpeed = moveSpeed;
+            while (timeElapsed < time) 
+            {
+                timeElapsed += Time.deltaTime;
+                moveSpeed = Mathf.Lerp(initialSpeed, newSpeed, timeElapsed / time);
+                yield return null;
+            }
+            moveSpeed = newSpeed;
+        }
+    }
+
+    public float GetSpeed() 
+    {
+        return moveSpeed;
+    }
+
+
     bool RemoveObjects() {
         // Remove objects that have been deleted
         environmentObjects.RemoveAll(obj => obj == null);
