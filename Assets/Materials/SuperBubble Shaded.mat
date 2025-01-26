@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bubble Shaded
-  m_Shader: {fileID: -6465566751694194690, guid: 96f72069bf37b4e68b05e6e96f42cd5d, type: 3}
+  m_Name: SuperBubble Shaded
+  m_Shader: {fileID: -6465566751694194690, guid: 97f29da7331fc51409a7ae3375e4c7b2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
