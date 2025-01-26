@@ -60,11 +60,13 @@ MonoBehaviour:
     weight: 1
   - obj: {fileID: 7689889642505899059, guid: 76d6dcc70d5066e4e81e17dbe0631eab, type: 3}
     weight: 1
+  - obj: {fileID: 4353411445901492101, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+    weight: 1
   straightPipePrefab: {fileID: 8337143842550878145, guid: 511f74ede946aa64e8095d35671ca185, type: 3}
   pipeLength: 0
   pipeRadius: 4
   pipeCount: 4
-  bubblesPerPipe: 4
+  collectiblesPerPipe: 8
   connectorActive: 0
 --- !u!82 &1478162513162020642
 AudioSource:

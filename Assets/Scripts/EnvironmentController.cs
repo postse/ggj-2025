@@ -22,7 +22,7 @@ public class EnvironmentController : MonoBehaviour
     public float pipeLength;
     public float pipeRadius = 4.0f;
     public int pipeCount = 4;
-    public int bubblesPerPipe = 8;
+    public int collectiblesPerPipe = 8;
     // bool connectorActive = false;
     [SerializeField]
     private bool connectorActive = false;
@@ -131,7 +131,7 @@ public class EnvironmentController : MonoBehaviour
                 var straightPipe = Instantiate(straightPipePrefab, new Vector3(rightOffset, upOffset, pipeLength * pipeCount), Quaternion.Euler(upSelector * 90, rightSelector * 90, 0), connector.transform);
                 straightPipe.name = "PipeDir" + dir + j; 
                 environmentObjects.Add(straightPipe);
-                PlaceBubbleCollectibles(straightPipe);
+                PlaceCollectibles(straightPipe);
             }
         }
     }
@@ -140,13 +140,13 @@ public class EnvironmentController : MonoBehaviour
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
-        PlaceBubbleCollectibles(straightPipe);
+        PlaceCollectibles(straightPipe);
         straightPipe.name = "Pipe" + totalPipes++;
     }
 
-    public void PlaceBubbleCollectibles(GameObject pipe) {
-        float collectibleSpacing = pipeLength / bubblesPerPipe;
-        for (int i = -bubblesPerPipe / 2; i < bubblesPerPipe / 2; i++)
+    public void PlaceCollectibles(GameObject pipe) {
+        float collectibleSpacing = pipeLength / collectiblesPerPipe;
+        for (int i = -collectiblesPerPipe / 2; i < collectiblesPerPipe / 2; i++)
         {
             // Randomly generate items based on their weights
             float rand = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -162,7 +162,17 @@ public class EnvironmentController : MonoBehaviour
                 }
             }
             if (!collectible) break;
-            collectible.transform.localPosition = new Vector3(UnityEngine.Random.Range(-pipeRadius, pipeRadius), UnityEngine.Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
+
+            if (collectible.name.StartsWith("Electrical Wires"))
+            {
+                float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
+                collectible.transform.localPosition = new Vector3(pipeRadius * Mathf.Cos(angle), pipeRadius * Mathf.Sin(angle), collectibleSpacing * i);
+                collectible.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg - 90f);
+            }
+            else 
+            {
+                collectible.transform.localPosition = new Vector3(UnityEngine.Random.Range(-pipeRadius, pipeRadius), UnityEngine.Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
+            }
         }
     }
 
