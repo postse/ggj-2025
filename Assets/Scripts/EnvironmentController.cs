@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -17,24 +18,6 @@ public class EnvironmentController : MonoBehaviour
     private List<GameObject> environmentObjects = new List<GameObject>();
     public List<GameObject> connectors = new List<GameObject>();
     public List<Collectible> collectibles = new List<Collectible>();
-
-    List<Collectible> normalizedCollectibles {
-        get {
-            // Normalize collectible weights
-            float totalWeight = 0;
-            List<Collectible> col = new List<Collectible>();
-            foreach (var collectible in collectibles)
-                totalWeight += collectible.weight;
-            for (int i = 0; i < collectibles.Count; i++) {
-                var tempCollectible = collectibles[i];
-                Collectible normalizedCollectible = new();
-                normalizedCollectible.obj = tempCollectible.obj;
-                normalizedCollectible.weight = tempCollectible.weight / totalWeight;
-                col.Add(normalizedCollectible);
-            }
-            return col;
-        }
-    }
 
     public GameObject straightPipePrefab;
     public float pipeLength;
@@ -176,28 +159,18 @@ public class EnvironmentController : MonoBehaviour
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
-        PlaceCollectibles(straightPipe);
+        Debug.Log("Total pipes: " + totalPipes);
+        if (totalPipes != 0) PlaceCollectibles(straightPipe);
         straightPipe.name = "Pipe" + totalPipes++;
     }
 
     public void PlaceCollectibles(GameObject pipe) {
         float collectibleSpacing = pipeLength / collectiblesPerPipe;
-        for (int i = -collectiblesPerPipe / 2; i < collectiblesPerPipe / 2; i++)
+        for (int i = -collectiblesPerPipe / 2; i <= collectiblesPerPipe / 2; i++)
         {
-            // Randomly generate items based on their weights
-            float rand = Random.Range(0.0f, 1.0f);
-            GameObject collectible = null;
-            float thresh = 0.0f;
-            for (int j = 0; j < collectibles.Count; j++)
-            {
-                thresh += normalizedCollectibles[j].weight;
-                Debug.Log("Threshold: " + thresh + ", Name: " + collectibles[j].obj.name + ", Rand: " + rand);
-                if (rand < thresh)
-                {
-                    collectible = Instantiate(normalizedCollectibles[j].obj, pipe.transform);
-                    break;
-                }
-            }
+            Collectible collectibleTemplate = GetRandomCollectible();
+            GameObject collectible = Instantiate(collectibleTemplate.obj, pipe.transform);
+
             if (!collectible) break;
 
             if (collectible.name.StartsWith("Electrical Wires"))
@@ -211,6 +184,22 @@ public class EnvironmentController : MonoBehaviour
                 collectible.transform.localPosition = new Vector3(UnityEngine.Random.Range(-pipeRadius, pipeRadius), UnityEngine.Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
             }
         }
+    }
+
+    private Collectible GetRandomCollectible() {
+        float totalWeight = collectibles.Sum(c => c.weight);
+        float rand = Random.Range(0.0f, totalWeight);
+        float thresh = 0.0f;
+        for (int i = 0; i < collectibles.Count; i++)
+        {
+            thresh += collectibles[i].weight;
+            if (rand < thresh)
+            {
+                return collectibles[i];
+            }
+        }
+
+        return collectibles[0];
     }
 
     public void StopMovement(float secondsToStop)
