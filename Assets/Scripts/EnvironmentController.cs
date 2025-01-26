@@ -37,7 +37,7 @@ public class EnvironmentController : MonoBehaviour
             InstantiateEnvironment(i);
         }
 
-        
+        ChangeSpeeds(new float[] { moveSpeed }, 3f);
     }
 
     void Update()
