@@ -76,7 +76,6 @@ public class GameplayController : MonoBehaviour
             environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
             cameraController.ShakeCamera(0.2f, 0.5f);
             RemoveBubbleFromReservoir(wallBounceDmg, true);
-            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
             wallBonkSound.Play();
         }
     }
