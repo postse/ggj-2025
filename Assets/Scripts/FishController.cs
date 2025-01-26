@@ -12,6 +12,9 @@ public class FishController : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
+        if (transform.parent.CompareTag("Environment"))
+        {
+            transform.Translate(moveSpeed * Time.deltaTime * Vector3.back, Space.World);
+        }
     }
 }
