@@ -166,7 +166,7 @@ public class EnvironmentController : MonoBehaviour
 
     public void PlaceCollectibles(GameObject pipe) {
         float collectibleSpacing = pipeLength / collectiblesPerPipe;
-        for (int i = -collectiblesPerPipe / 2; i <= collectiblesPerPipe / 2; i++)
+        for (int i = -collectiblesPerPipe / 2; i < collectiblesPerPipe / 2; i++)
         {
             Collectible collectibleTemplate = GetRandomCollectible();
             GameObject collectible = Instantiate(collectibleTemplate.obj, pipe.transform);

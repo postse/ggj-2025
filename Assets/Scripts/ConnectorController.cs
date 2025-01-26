@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 
 public enum Direction {
@@ -23,12 +24,15 @@ public class ConnectorController : MonoBehaviour
 
     private float turningSpeed = 200.0f;
 
+    public GameObject arrowPrefab;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         DetectDirection();
+        CreateArrows();
     }
 
     // Used to initialize the allowed turning directions
@@ -51,6 +55,37 @@ public class ConnectorController : MonoBehaviour
             RotateTurnValues();
             RotateTurnValues();
             RotateTurnValues();
+        }
+    }
+
+    void CreateArrows() {
+        if (AllowRight) {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            arrow.transform.Rotate(0.0f, 0.0f, 270);
+            arrow.transform.localPosition += new Vector3(0.0f, 0.0f, 1.4f);
+            arrow.name = "ArrowRight";
+        }
+        if (AllowUp) {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            arrow.transform.Rotate(0.0f, 0.0f, 0);
+            arrow.transform.localPosition += new Vector3(0.0f, 0.0f, 1.4f);
+            arrow.name = "ArrowUp";
+        }
+        if (AllowLeft) {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            arrow.transform.Rotate(0.0f, 0.0f, 90f);
+            arrow.transform.localPosition += new Vector3(0.0f, 0.0f, 1.4f);
+            arrow.name = "ArrowLeft";
+        }
+        if (AllowDown) {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            arrow.transform.Rotate(0.0f, 0.0f, 180f);
+            arrow.transform.localPosition += new Vector3(0.0f, 0.0f, 1.4f);
+            arrow.name = "ArrowDown";
         }
     }
 
