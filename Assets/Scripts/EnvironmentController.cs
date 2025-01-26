@@ -64,7 +64,7 @@ public class EnvironmentController : MonoBehaviour
             // Don't move children of Connectors
             if (obj.transform.parent == null || !obj.transform.parent.CompareTag("Connector")) {   
                 float currentMoveSpeed = moveSpeed * difficultySpeedMultiplier * superBubbleSpeedMultiplier;
-                Debug.Log(currentMoveSpeed);
+                // Debug.Log(currentMoveSpeed);
                 obj.transform.Translate(Vector3.back * currentMoveSpeed * Time.deltaTime, Space.World);
             }
         }
