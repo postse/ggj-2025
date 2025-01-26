@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de472c24890a455fa6fb74d930db5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 20
   connectors:
   - {fileID: 4439066156245773155, guid: b34e2dd0c2f608a4b92573f9c3c98863, type: 3}
   - {fileID: 9159215432039822218, guid: a4d30e872871b6346bb22c1d989eeb22, type: 3}
@@ -65,6 +65,7 @@ MonoBehaviour:
   pipeRadius: 4
   pipeCount: 4
   bubblesPerPipe: 4
+  connectorActive: 0
 --- !u!82 &1478162513162020642
 AudioSource:
   m_ObjectHideFlags: 0
