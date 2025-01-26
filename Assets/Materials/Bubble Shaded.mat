@@ -88,13 +88,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _Add_Alpha: 1.1
+    - _Add_Alpha: 0.01
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _Blend_Opacity: 1.44
-    - _Blend_Sharpness: 1
+    - _Blend_Sharpness: 0.59
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -114,7 +114,7 @@ Material:
     - _Noise_Subtraction: 0.6
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Position_Scale_Factor: 0.1
+    - _Position_Scale_Factor: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0

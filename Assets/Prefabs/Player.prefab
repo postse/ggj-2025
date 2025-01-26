@@ -78,9 +78,14 @@ MonoBehaviour:
   airReservoir: 10
   maxAirReservoir: 10
   bubblePopTimerFrequency: 1.5
+  bubbleValue: 5
   score: 0
   scorePerSecond: 1
   isGameOver: 0
+  hampter: {fileID: 2048836721671166111}
+  wiggleSpeed: 8
+  maxWiggle: 75
+  wiggleOffset: -35
 --- !u!82 &9161553350224295615
 AudioSource:
   m_ObjectHideFlags: 0
@@ -247,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lateralAcceleration: 200
   lateralMaxSpeed: 4
+  clampedWidth: 4
 --- !u!114 &8784474831104696128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +484,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a00cfa403c9934fe19d978c8f1c72c88, type: 3}
+--- !u!1 &2048836721671166111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7563722017127951184, guid: a00cfa403c9934fe19d978c8f1c72c88, type: 3}
+  m_PrefabInstance: {fileID: 8401838101551002575}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8292228901430055972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a00cfa403c9934fe19d978c8f1c72c88, type: 3}

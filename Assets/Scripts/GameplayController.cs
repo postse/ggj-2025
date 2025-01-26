@@ -25,6 +25,11 @@ public class GameplayController : MonoBehaviour
     private MovementController movementController;
 
     public bool isGameOver = false;
+    
+    public GameObject hampter;
+    public float wiggleSpeed = 1.0f;
+    public float maxWiggle = 90.0f;
+    public float wiggleOffset = 0.0f;   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +48,11 @@ public class GameplayController : MonoBehaviour
         movementController = FindFirstObjectByType<MovementController>();
 
         airUiController.SetBubbles(airReservoir);
+    }
+
+    void Update() 
+    {
+        hampter.transform.rotation = Quaternion.Euler(maxWiggle * Mathf.Sin(Time.time * wiggleSpeed) + wiggleOffset, 0, 90);
     }
 
     void OnTriggerEnter(Collider other)
