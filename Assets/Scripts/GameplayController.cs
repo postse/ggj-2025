@@ -35,6 +35,7 @@ public class GameplayController : MonoBehaviour
     public float bounceOffWallTime = 0.5f;
     public float superBubbleInvincibilityTime = 5.0f;
     public bool superBubbleEnabled = false;
+    public bool collisionDisabled = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,14 +66,22 @@ public class GameplayController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (string.Equals(collision.gameObject.name, "WallTrigger"))
+        if (string.Equals(collision.gameObject.name, "WallTrigger") && !collisionDisabled)
         {
+            collisionDisabled = true;
+            StartCoroutine(CollisionDisablerAsync(bounceOffWallTime));
             float moveSpeed = environmentController.GetSpeed();
             environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
             cameraController.ShakeCamera(0.2f, 0.5f);
-            RemoveBubbleFromReservoir(4, true);
+            RemoveBubbleFromReservoir(0, true);
             hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         }
+    }
+
+    IEnumerator CollisionDisablerAsync(float invincibilityTime)
+    {
+        yield return new WaitForSeconds(invincibilityTime);
+        collisionDisabled = false;
     }
 
     void OnTriggerEnter(Collider other)

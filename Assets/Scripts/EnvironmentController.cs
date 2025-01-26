@@ -191,7 +191,7 @@ public class EnvironmentController : MonoBehaviour
             for (int j = 0; j < collectibles.Count; j++)
             {
                 thresh += normalizedCollectibles[j].weight;
-                Debug.Log("Threshold: " + thresh + ", Name: " + collectibles[j].obj.name + ", Rand: " + rand);
+                // Debug.Log("Threshold: " + thresh + ", Name: " + collectibles[j].obj.name + ", Rand: " + rand);
                 if (rand < thresh)
                 {
                     collectible = Instantiate(normalizedCollectibles[j].obj, pipe.transform);

@@ -171,18 +171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: connectors.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: 'connectors.Array.data[0]'
-      value: 
-      objectReference: {fileID: 9159215432039822218, guid: a4d30e872871b6346bb22c1d989eeb22, type: 3}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: 'connectors.Array.data[1]'
-      value: 
-      objectReference: {fileID: 4439066156245773155, guid: b34e2dd0c2f608a4b92573f9c3c98863, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
