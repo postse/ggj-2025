@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public enum Direction {
-    Right,
-    Up,
-    Left,
-    Down,
-    None
+    Right = 0,
+    Up = 1,
+    Left = 2,
+    Down = 3
 }
 
 public class ConnectorController : MonoBehaviour
@@ -22,30 +22,13 @@ public class ConnectorController : MonoBehaviour
     public bool AllowDown = false;
 
     private float turningSpeed = 200.0f;
-    private Quaternion ogRot = Quaternion.identity;
-    private Direction turnDir = Direction.None;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        ogRot = transform.rotation;
         DetectDirection();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // if (Time.time < 3) return;
-        // if (turnDir != Direction.None)
-        // {
-        //     Turn(turnDir);
-        // }
-
-        if (transform.childCount < 3) {
-            Destroy(gameObject);
-        }
     }
 
     // Used to initialize the allowed turning directions
@@ -96,10 +79,10 @@ public class ConnectorController : MonoBehaviour
         else return;
 
         StopAllCoroutines();
-        StartCoroutine(TurnToTarget(targetRot));
+        StartCoroutine(TurnToTarget(targetRot, dir));
     }
 
-    IEnumerator TurnToTarget(Quaternion targetRot) {
+    IEnumerator TurnToTarget(Quaternion targetRot, Direction dir) {
         // float speed = turningSpeed * ( 1f - Mathf.Exp( -Time.deltaTime ) );
         float speed = turningSpeed * Time.deltaTime;
         // float speed = Quaternion.Angle(transform.rotation, targetRot) / 180 * Time.deltaTime;
@@ -110,11 +93,25 @@ public class ConnectorController : MonoBehaviour
             yield return null;
         }
         transform.rotation = targetRot;
+        RemovePipes(dir);
     }
-    
-    // public void StartTurning(Direction dir) 
-    // {
-    //     turnDir = dir;
-    // }
+
+    void RemovePipes(Direction dir) {
+        List<Transform> children = new List<Transform>();
+        foreach (Transform child in transform) {
+            children.Add(child);
+        }
+        foreach (Transform child in children) {
+            if (child.name.StartsWith("PipeDir" + dir)) {
+                // This is a pipe in the correct direction
+                child.transform.SetParent(child.transform.parent.parent);
+                child.tag = "Environment";
+            } else if (child.name.StartsWith("PipeDir" + dir)) {
+                // This is a pipe in the wrong direction
+                child.gameObject.SetActive(false);
+            }
+            // Otherwise, let our EnvironmentController garbage collect it
+        }
+    }
 
 }
