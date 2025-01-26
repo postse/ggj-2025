@@ -70,7 +70,6 @@ public class GameplayController : MonoBehaviour
     {
         if (string.Equals(collision.gameObject.name, "WallTrigger") && !collisionDisabled)
         {
-            Debug.Log("Wall hit!");
             collisionDisabled = true;
             StartCoroutine(CollisionDisablerAsync(bounceOffWallTime));
             float moveSpeed = environmentController.GetSpeed();
