@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
+  defaultMoveSpeed: 0
+  superBubbleSpeedMultiplier: 1
+  difficultySpeedMultiplier: 1
   connectors:
   - {fileID: 4439066156245773155, guid: b34e2dd0c2f608a4b92573f9c3c98863, type: 3}
   - {fileID: 9159215432039822218, guid: a4d30e872871b6346bb22c1d989eeb22, type: 3}
@@ -67,7 +70,7 @@ MonoBehaviour:
   pipeLength: 0
   pipeRadius: 4
   pipeCount: 4
-  collectiblesPerPipe: 8
+  collectiblesPerPipe: 5
   connectorActive: 0
 --- !u!82 &1478162513162020642
 AudioSource:
