@@ -115,7 +115,8 @@ public class ConnectorController : MonoBehaviour
             targetRot = Quaternion.Euler(-90.0f, ogEuler.y, ogEuler.z);
         else return;
 
-        gameplayController.GetActiveConnector().gameObject.transform.Find("WallTrigger").gameObject.SetActive(false);
+        // gameplayController.GetActiveConnector().gameObject.transform.Find("WallTrigger").gameObject.SetActive(false);
+        gameplayController.GetActiveConnector().gameObject.transform.Find("WallTrigger").name = "DeadWallTrigger";
         StopAllCoroutines();
         StartCoroutine(TurnToTarget(targetRot, dir));
     }
