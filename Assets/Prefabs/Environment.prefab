@@ -54,11 +54,15 @@ MonoBehaviour:
   - {fileID: 3875079651744699582, guid: 40919d2b87e42b0418257c888d78545f, type: 3}
   - {fileID: 4036841200774873820, guid: 71a8f71d18e48de42b52877450d5fec2, type: 3}
   collectibles:
-  - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
-  - {fileID: 1478892130398164570, guid: a9a4471da39b1774fa1c17e0d534b9fd, type: 3}
-  - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
-  - {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
+  - obj: {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
+    weight: 3
+  - obj: {fileID: 1478892130398164570, guid: a9a4471da39b1774fa1c17e0d534b9fd, type: 3}
+    weight: 1
+  - obj: {fileID: 7689889642505899059, guid: 76d6dcc70d5066e4e81e17dbe0631eab, type: 3}
+    weight: 1
   straightPipePrefab: {fileID: 8337143842550878145, guid: 511f74ede946aa64e8095d35671ca185, type: 3}
+  pipeLength: 0
+  pipeRadius: 4
   pipeCount: 4
   bubblesPerPipe: 4
 --- !u!82 &1478162513162020642

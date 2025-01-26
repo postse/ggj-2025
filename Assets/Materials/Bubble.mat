@@ -15,6 +15,7 @@ Material:
   - _ALPHAPREMULTIPLY_ON
   - _EMISSION
   - _RECEIVE_SHADOWS_OFF
+  - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -118,7 +119,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _WorkflowMode: 1
+    - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 0.34749022, g: 0.38395578, b: 0.8113208, a: 0.24705882}

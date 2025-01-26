@@ -1,7 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+
+[Serializable]
+public struct Collectible {
+    public GameObject obj;
+    public float weight;
+}
 
 public class EnvironmentController : MonoBehaviour
 {
@@ -10,7 +17,7 @@ public class EnvironmentController : MonoBehaviour
 
     private List<GameObject> environmentObjects = new List<GameObject>();
     public List<GameObject> connectors = new List<GameObject>();
-    public List<GameObject> collectibles = new List<GameObject>();
+    public List<Collectible> collectibles = new List<Collectible>();
 
     public GameObject straightPipePrefab;
     public float pipeLength;
@@ -27,6 +34,16 @@ public class EnvironmentController : MonoBehaviour
         for (int i = 0; i <= pipeCount; i++)
         {
             InstantiateEnvironment(i);
+        }
+
+        // Normalize collectible weights
+        float totalWeight = 0;
+        foreach (var collectible in collectibles)
+            totalWeight += collectible.weight;
+        for (int i = 0; i < collectibles.Count; i++) {
+            var tempCollectible = collectibles[i];
+            tempCollectible.weight /= totalWeight;
+            collectibles[i] = tempCollectible;
         }
     }
 
@@ -57,7 +74,7 @@ public class EnvironmentController : MonoBehaviour
                 continue;
             }
             if (!activeConnector && shouldISpawn) {
-                if (Random.Range(0, 2) == 0)
+                if (UnityEngine.Random.Range(0, 2) == 0)
                     InstantiateConnector();
                 else 
                     InstantiateEnvironment(pipeCount);
@@ -75,8 +92,8 @@ public class EnvironmentController : MonoBehaviour
     }
 
     public void InstantiateConnector() {
-        var selectedConnector = connectors[Random.Range(0, connectors.Count)];
-        float randAngle = Random.Range(0, 4) * 90.0f;
+        var selectedConnector = connectors[UnityEngine.Random.Range(0, connectors.Count)];
+        float randAngle = UnityEngine.Random.Range(0, 4) * 90.0f;
         var connector = Instantiate(selectedConnector, pipeCount * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, randAngle), transform);
         environmentObjects.Add(connector);
         activeConnector = connector;
@@ -85,7 +102,6 @@ public class EnvironmentController : MonoBehaviour
         // Generate 'pipeCount' pipes in each of the 4 directions attached to the connector
         for (int i = 0; i < 4; i++) {
             for (int j = 1; j < pipeCount + 1; j++) {
-                // int j = 1;
                 float rightSelector = Mathf.Cos(i * Mathf.PI / 2);
                 float upSelector = Mathf.Sin(i * Mathf.PI / 2);
                 float rightOffset = rightSelector * j * pipeLength;
@@ -109,8 +125,21 @@ public class EnvironmentController : MonoBehaviour
         float collectibleSpacing = pipeLength / bubblesPerPipe;
         for (int i = -bubblesPerPipe / 2; i < bubblesPerPipe / 2; i++)
         {
-            var collectible = Instantiate(collectibles[Random.Range(0, collectibles.Count)], pipe.transform);
-            collectible.transform.localPosition = new Vector3(Random.Range(-pipeRadius, pipeRadius), Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
+            // Randomly generate items based on their weights
+            float rand = UnityEngine.Random.Range(0.0f, 1.0f);
+            GameObject collectible = null;
+            float thresh = 0;
+            for (int j = 0; j < collectibles.Count; j++)
+            {
+                thresh += collectibles[j].weight;
+                if (rand < thresh)
+                {
+                    collectible = Instantiate(collectibles[j].obj, pipe.transform);
+                    break;
+                }
+            }
+            if (!collectible) break;
+            collectible.transform.localPosition = new Vector3(UnityEngine.Random.Range(-pipeRadius, pipeRadius), UnityEngine.Random.Range(-pipeRadius, pipeRadius), collectibleSpacing * i);
         }
     }
 
