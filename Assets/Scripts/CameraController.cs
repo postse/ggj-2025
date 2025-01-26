@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
+
+        SetRenderResolution(600);
     }
 
     void LateUpdate()
@@ -41,5 +45,13 @@ public class CameraController : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         isShaking = false;
+    }
+
+    private void SetRenderResolution(int horizontalPixels)
+    {
+        var urpAsset = (UniversalRenderPipelineAsset)GraphicsSettings.defaultRenderPipeline;
+        float aspectRatio = (float)Screen.height / Screen.width;
+        float renderScale = horizontalPixels / (float)Screen.width;
+        urpAsset.renderScale = aspectRatio * renderScale;
     }
 }
