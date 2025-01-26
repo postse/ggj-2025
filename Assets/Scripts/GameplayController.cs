@@ -102,8 +102,9 @@ public class GameplayController : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        score += scoreToAdd;
+        if (isGameOver) return;
 
+        score += scoreToAdd;
         scoreUI.GetComponentInChildren<TextMeshProUGUI>().SetText("Score: " + score);
     }
 
