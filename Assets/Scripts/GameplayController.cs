@@ -8,11 +8,13 @@ public class GameplayController : MonoBehaviour
     public int airReservoir = 10;
     public int maxAirReservoir = 10;
     public float bubblePopTimerFrequency = 2.0f;
+    public int bubbleValue = 5;
 
     public int score = 0;
     public int scorePerSecond = 1;
     private GameObject gameOverUI;
     private GameObject airUi;
+    private GameObject scoreUI;
 
     private BubbleBarUI airUiController;
 
@@ -33,6 +35,7 @@ public class GameplayController : MonoBehaviour
         GameObject canvas = GameObject.Find("Canvas");
         gameOverUI = canvas.transform.Find("GameOverUI").gameObject;
         airUi = canvas.transform.Find("AirUI").gameObject;
+        scoreUI = canvas.transform.Find("ScoreUI").gameObject;
 
         airUiController = airUi.GetComponentInChildren<BubbleBarUI>();
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
@@ -51,6 +54,8 @@ public class GameplayController : MonoBehaviour
             AddBubbleToReservoir();
             BubbleController bubble = other.gameObject.GetComponent<BubbleController>();
             bubble.Interact();
+
+            AddScore(bubbleValue);
         }
         else if (other.gameObject.CompareTag("Obstacle"))
         {
@@ -90,7 +95,7 @@ public class GameplayController : MonoBehaviour
     {
         while (!isGameOver)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(.5f);
             AddScore(scorePerSecond);
         }
     }
@@ -98,6 +103,8 @@ public class GameplayController : MonoBehaviour
     public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
+
+        scoreUI.GetComponentInChildren<TextMeshProUGUI>().SetText("Score: " + score);
     }
 
     public void RemoveBubbleFromReservoir(int bubblesToRemove = 1, bool fromObstacle = false)
