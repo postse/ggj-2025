@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
 
-        SetRenderResolution(600);
+        SetRenderResolution(640);
     }
 
     void LateUpdate()
