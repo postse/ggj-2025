@@ -61,6 +61,8 @@ MonoBehaviour:
     weight: 1
   - obj: {fileID: 4353411445901492101, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
     weight: 1
+  - obj: {fileID: 671519127937060241, guid: f36f373fc9dfe4d3eb45d136ed530d78, type: 3}
+    weight: 0.1
   straightPipePrefab: {fileID: 8337143842550878145, guid: 511f74ede946aa64e8095d35671ca185, type: 3}
   pipeLength: 0
   pipeRadius: 4
