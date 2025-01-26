@@ -216,6 +216,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13d677a162a0af94599c5925a305a721, type: 3}
+--- !u!1001 &2079944889
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.368
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340397379834356192, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353411445901492101, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: m_Name
+      value: Electrical Wires
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838899881552669832, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
+      propertyPath: wireSize
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
 --- !u!1001 &535209426885288976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -269,9 +330,13 @@ PrefabInstance:
       value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: collectibles.Array.data[0].weight
-      value: 1
+      propertyPath: collectibles.Array.size
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'collectibles.Array.data[4]'
+      value: 
+      objectReference: {fileID: 4353411445901492101, guid: a9b8e6aca8c0b41f1963ec4220585924, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -403,3 +468,4 @@ SceneRoots:
   - {fileID: 535209426885288976}
   - {fileID: 627146109}
   - {fileID: 7793475791262023129}
+  - {fileID: 2079944889}
