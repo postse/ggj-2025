@@ -23,6 +23,7 @@ public class GameplayController : MonoBehaviour
     private HurtOverlayController hurtOverlayController;
     private EnvironmentController environmentController;
     private MovementController movementController;
+    private AirTextController airTextController;
 
     public bool isGameOver = false;
 
@@ -48,6 +49,7 @@ public class GameplayController : MonoBehaviour
         hurtOverlayController = FindFirstObjectByType<HurtOverlayController>();
         environmentController = FindFirstObjectByType<EnvironmentController>();
         movementController = FindFirstObjectByType<MovementController>();
+        airTextController = FindFirstObjectByType<AirTextController>();
 
         airUiController.SetBubbles(airReservoir);
     }
@@ -70,6 +72,7 @@ public class GameplayController : MonoBehaviour
                 bubble.Interact();
                 AddScore(bubbleValue * 10);
                 superBubbleEnabled = true;
+                airTextController.SetInvincibilityText(superBubbleInvincibilityTime);
 
                 StartCoroutine(DisableSuperBubble());
             }
@@ -86,7 +89,6 @@ public class GameplayController : MonoBehaviour
             ObstacleController obstacle = other.gameObject.GetComponentInParent<ObstacleController>();
             RemoveBubbleFromReservoir(obstacle.damage, true);
             obstacle.Interact();
-            hurtOverlayController.FlashOverlay(0.2f, 0.2f);
         }
         else if (other.gameObject.CompareTag("Connector"))
         {
@@ -112,7 +114,7 @@ public class GameplayController : MonoBehaviour
         while (!isGameOver)
         {
             yield return new WaitForSeconds(bubblePopTimerFrequency);
-            if (airReservoir > 0 && !superBubbleEnabled)
+            if (airReservoir > 0)
             {
                 RemoveBubbleFromReservoir();
             }
@@ -138,6 +140,8 @@ public class GameplayController : MonoBehaviour
 
     public void RemoveBubbleFromReservoir(int bubblesToRemove = 1, bool fromObstacle = false)
     {
+        if (superBubbleEnabled) return;
+
         airReservoir = Math.Max(0, airReservoir - bubblesToRemove);
         for (int i = 0; i < bubblesToRemove; i++)
         {
