@@ -99,7 +99,7 @@ public class EnvironmentController : MonoBehaviour
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
-        // PlaceBubbleCollectibles(straightPipe);
+        PlaceBubbleCollectibles(straightPipe);
         straightPipe.name = "Pipe" + totalPipes++;
     }
 
