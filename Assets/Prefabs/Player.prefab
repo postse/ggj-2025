@@ -77,7 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   airReservoir: 10
   maxAirReservoir: 10
-  bubblePopTimerFrequency: 1.5
+  bubblePopTimerFrequency: 1.7
   bubbleValue: 5
   score: 0
   scorePerSecond: 1
