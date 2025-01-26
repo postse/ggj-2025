@@ -25,12 +25,14 @@ public class ConnectorController : MonoBehaviour
     private float turningSpeed = 200.0f;
 
     public GameObject arrowPrefab;
+    private GameplayController gameplayController;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        gameplayController = player.GetComponentInChildren<GameplayController>();
         DetectDirection();
         CreateArrows();
     }
@@ -113,6 +115,7 @@ public class ConnectorController : MonoBehaviour
             targetRot = Quaternion.Euler(-90.0f, ogEuler.y, ogEuler.z);
         else return;
 
+        gameplayController.GetActiveConnector().gameObject.transform.Find("WallTrigger").gameObject.SetActive(false);
         StopAllCoroutines();
         StartCoroutine(TurnToTarget(targetRot, dir));
     }

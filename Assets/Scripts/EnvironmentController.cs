@@ -14,6 +14,7 @@ public class EnvironmentController : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 10.0f;
+    public float defaultMoveSpeed;
 
     public float superBubbleSpeedMultiplier = 1.0f;
 
@@ -38,7 +39,7 @@ public class EnvironmentController : MonoBehaviour
         {
             InstantiateEnvironment(i);
         }
-
+        defaultMoveSpeed = moveSpeed;
         ChangeSpeeds(new float[] { moveSpeed }, 3f);
     }
 
@@ -161,7 +162,6 @@ public class EnvironmentController : MonoBehaviour
         var straightPipe = Instantiate(straightPipePrefab, offset * new Vector3(0, 0, pipeLength), Quaternion.Euler(0, 0, 0), transform);
         environmentObjects.Add(straightPipe);
 
-        Debug.Log("Total pipes: " + totalPipes);
         if (totalPipes != 0) PlaceCollectibles(straightPipe);
         straightPipe.name = "Pipe" + totalPipes++;
     }
@@ -235,4 +235,5 @@ public class EnvironmentController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         superBubbleSpeedMultiplier = 1.0f;
     }
+
 }

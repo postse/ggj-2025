@@ -70,10 +70,12 @@ public class GameplayController : MonoBehaviour
     {
         if (string.Equals(collision.gameObject.name, "WallTrigger") && !collisionDisabled)
         {
+            Debug.Log("Wall hit!");
             collisionDisabled = true;
             StartCoroutine(CollisionDisablerAsync(bounceOffWallTime));
             float moveSpeed = environmentController.GetSpeed();
-            environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
+            // environmentController.ChangeSpeeds(new float[] {-moveSpeed, moveSpeed}, bounceOffWallTime);
+            environmentController.ChangeSpeeds(new float[] {-environmentController.defaultMoveSpeed, environmentController.defaultMoveSpeed}, bounceOffWallTime);
             cameraController.ShakeCamera(0.2f, 0.5f);
             RemoveBubbleFromReservoir(wallBounceDmg, true);
             wallBonkSound.Play();

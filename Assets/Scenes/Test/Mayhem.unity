@@ -171,6 +171,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: pipeCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: connectors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: collectibles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'connectors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4036841200774873820, guid: 71a8f71d18e48de42b52877450d5fec2, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'connectors.Array.data[1]'
+      value: 
+      objectReference: {fileID: 9159215432039822218, guid: a4d30e872871b6346bb22c1d989eeb22, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'connectors.Array.data[2]'
+      value: 
+      objectReference: {fileID: 664094547934347234, guid: 22bc60bb262ec2544b5e6900e09cc421, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'connectors.Array.data[3]'
+      value: 
+      objectReference: {fileID: 3875079651744699582, guid: 40919d2b87e42b0418257c888d78545f, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: 'connectors.Array.data[4]'
+      value: 
+      objectReference: {fileID: 3875079651744699582, guid: 40919d2b87e42b0418257c888d78545f, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: collectibles.Array.data[0].obj
+      value: 
+      objectReference: {fileID: 671519127937060241, guid: 771ab6e1a89379641a68e87bb626bdd9, type: 3}
+    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
+      propertyPath: collectibles.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -228,6 +268,10 @@ PrefabInstance:
       propertyPath: wallBonkSound
       value: 
       objectReference: {fileID: 1691559209}
+    - target: {fileID: 4530483706676362177, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
+      propertyPath: wallBounceDmg
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4530483706676362177, guid: 76f55c27a6c0b4e3d9233240be278880, type: 3}
       propertyPath: bounceOffWallTime
       value: 0.5

@@ -11,14 +11,18 @@ public class CameraController : MonoBehaviour
 
     private bool isShaking = false;
 
+    public float defaultCameraDistance = 5.0f;
+    private float cameraDistance;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody>();
+        cameraDistance = defaultCameraDistance;
     }
 
     void LateUpdate()
     {
-        Vector3 cameraPosition = new Vector3(player.transform.position.x / cameraParallaxMultiplier, player.transform.position.y / cameraParallaxMultiplier, transform.position.z);
+        Vector3 cameraPosition = new Vector3(player.transform.position.x / cameraParallaxMultiplier, player.transform.position.y / cameraParallaxMultiplier, -cameraDistance);
 
         if (isShaking)
         {
@@ -41,5 +45,9 @@ public class CameraController : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         isShaking = false;
+    }
+
+    public void Zoom(float distance) {
+        cameraDistance = distance;
     }
 }
