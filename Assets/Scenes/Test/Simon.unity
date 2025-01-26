@@ -207,43 +207,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4343323219850657004, guid: 13d677a162a0af94599c5925a305a721, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 4925556133483282594, guid: 13d677a162a0af94599c5925a305a721, type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5736915314100771606, guid: 13d677a162a0af94599c5925a305a721, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5697123273649184443, guid: 13d677a162a0af94599c5925a305a721, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1651448176}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13d677a162a0af94599c5925a305a721, type: 3}
---- !u!1 &1651448172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5697123273649184443, guid: 13d677a162a0af94599c5925a305a721, type: 3}
-  m_PrefabInstance: {fileID: 627146109}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1651448176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651448172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b202e144fbcfe4defb8630cd4af5778d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &535209426885288976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,18 +267,6 @@ PrefabInstance:
     - target: {fileID: 2862876340072695359, guid: a784cac863409426ab21837804d05a6d, type: 3}
       propertyPath: m_Name
       value: Environment
-      objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: collectibles.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: collectibles.Array.data[4].obj
-      value: 
-      objectReference: {fileID: 671519127937060241, guid: f36f373fc9dfe4d3eb45d136ed530d78, type: 3}
-    - target: {fileID: 3594954119271065860, guid: a784cac863409426ab21837804d05a6d, type: 3}
-      propertyPath: collectibles.Array.data[4].weight
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
